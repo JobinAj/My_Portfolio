@@ -1,0 +1,1063 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Jobin AJ — DevOps · AI Platform · Go Developer</title>
+<meta name="description" content="DevOps Engineer specialising in cloud-native CI/CD, Kubernetes orchestration, and AI platform infrastructure. Based in Bangalore." />
+<link rel="icon" type="image/svg+xml" href="favicon.svg" />
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@300;400;500;600;700;800&family=Share+Tech+Mono&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --bg: #0a0e12;
+    --bg-2: #0e141b;
+    --panel: #111821;
+    --ink: #e4ecf3;
+    --ink-dim: #8a9aad;
+    --ink-mute: #4a5568;
+    --green: #5ee89a;
+    --green-bright: #7fefae;
+    --green-dim: #2f9a64;
+    --green-glow: rgba(94, 232, 154, 0.45);
+    --amber: #e8b96e;
+    --rule: #1a2230;
+    --rule-warm: #212a38;
+    --display: 'JetBrains Mono', monospace;
+    --mono: 'JetBrains Mono', monospace;
+    --term: 'Share Tech Mono', monospace;
+    --bubble-transform: translate(-50%, -50%);
+  }
+
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  html { scroll-behavior: smooth; font-size: 16px; }
+  @media (max-width: 480px) { html { font-size: 15px; } }
+
+  body {
+    background: var(--bg);
+    color: var(--ink);
+    font-family: var(--mono);
+    font-weight: 400;
+    line-height: 1.55;
+    overflow-x: hidden;
+    min-height: 100vh;
+    -webkit-font-smoothing: antialiased;
+  }
+
+  ::selection { background: var(--green); color: var(--bg); }
+
+  body::before {
+    content: '';
+    position: fixed;
+    inset: 0;
+    background-image:
+      linear-gradient(rgba(94, 232, 154, 0.025) 1px, transparent 1px),
+      linear-gradient(90deg, rgba(94, 232, 154, 0.025) 1px, transparent 1px);
+    background-size: 60px 60px;
+    pointer-events: none;
+    z-index: 0;
+  }
+  body::after {
+    content: '';
+    position: fixed;
+    inset: 0;
+    background: radial-gradient(ellipse at center, transparent 40%, rgba(0,0,0,0.55) 100%);
+    pointer-events: none;
+    z-index: 1;
+  }
+
+  main { position: relative; z-index: 2; }
+
+  .container {
+    max-width: 1320px;
+    margin: 0 auto;
+    padding: 0 3.5rem;
+    position: relative;
+  }
+
+  /* NAV */
+  nav {
+    padding: 2rem 0;
+    position: sticky;
+    top: 0;
+    z-index: 50;
+    background: rgba(10, 14, 18, 0.7);
+    backdrop-filter: blur(10px);
+    border-bottom: 1px solid transparent;
+    transition: border-color 0.3s ease;
+  }
+  nav.scrolled { border-bottom-color: var(--rule); }
+  nav .container { display: flex; justify-content: space-between; align-items: center; }
+  .nav-group { display: flex; gap: 2.2rem; }
+  .nav-item {
+    font-family: var(--mono);
+    font-size: 0.85rem;
+    font-weight: 500;
+    color: var(--ink);
+    text-decoration: none;
+    letter-spacing: 0.02em;
+    transition: color 0.25s ease;
+  }
+  .nav-item:hover { color: var(--green); }
+  .nav-item .num { color: var(--ink-mute); font-weight: 400; margin-right: 0.4rem; }
+  .nav-item .tag-open,
+  .nav-item .tag-close { color: var(--green); opacity: 0.7; }
+
+  .logo {
+    font-family: var(--display);
+    font-weight: 800;
+    font-size: 1.15rem;
+    letter-spacing: 0.02em;
+    color: var(--ink);
+    text-decoration: none;
+    position: relative;
+    padding-left: 1rem;
+  }
+  .logo::before {
+    content: '';
+    position: absolute;
+    left: 0; top: 50%;
+    width: 6px; height: 6px;
+    background: var(--green);
+    border-radius: 50%;
+    box-shadow: 0 0 10px var(--green-glow);
+    transform: translateY(-50%);
+    animation: pulse 1.8s ease-in-out infinite;
+  }
+  @keyframes pulse { 0%, 100% { opacity: 1; } 50% { opacity: 0.35; } }
+
+  /* HERO */
+  .hero {
+    padding: 5rem 0 7rem;
+    position: relative;
+    min-height: 82vh;
+  }
+  .hero-grid {
+    display: grid;
+    grid-template-columns: 1.3fr 1fr;
+    gap: 4rem;
+    align-items: center;
+  }
+
+  .status-pill {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.6rem;
+    padding: 0.45rem 1rem;
+    border: 1px solid var(--rule-warm);
+    border-radius: 2rem;
+    font-size: 0.75rem;
+    color: var(--ink-dim);
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    margin-bottom: 1.8rem;
+  }
+  .status-pill .dot {
+    width: 7px; height: 7px;
+    background: var(--green);
+    border-radius: 50%;
+    box-shadow: 0 0 8px var(--green-glow);
+    animation: pulse 1.6s ease-in-out infinite;
+  }
+  .status-pill strong { color: var(--green); font-weight: 500; }
+
+  .tag-line {
+    font-family: var(--mono);
+    font-size: 0.95rem;
+    color: var(--green);
+    margin-bottom: 0.5rem;
+    letter-spacing: 0.02em;
+  }
+  .tag-line .t { color: var(--ink-mute); opacity: 0.8; }
+
+  .hero-title-wrap {
+    position: relative;
+    padding-left: 1rem;
+    border-left: 2px solid var(--rule);
+  }
+  .hero-title-wrap .tag-h1-open,
+  .hero-title-wrap .tag-h1-close {
+    font-family: var(--mono);
+    font-size: 0.72rem;
+    color: var(--ink-mute);
+    letter-spacing: 0.04em;
+    display: block;
+    opacity: 0.7;
+  }
+
+  h1.hero-title {
+    font-family: var(--display);
+    font-weight: 800;
+    font-size: clamp(2.75rem, 7.5vw, 6rem);
+    line-height: 1;
+    letter-spacing: -0.035em;
+    color: var(--ink);
+    margin: 0.4rem 0;
+  }
+  h1.hero-title .accent {
+    color: var(--green);
+    text-shadow: 0 0 32px rgba(94, 232, 154, 0.3);
+  }
+
+  .hero-positioning {
+    font-family: var(--mono);
+    font-size: 1.15rem;
+    color: var(--ink);
+    line-height: 1.55;
+    max-width: 42ch;
+    margin-top: 1.5rem;
+    margin-left: 1rem;
+    font-weight: 300;
+  }
+  .hero-positioning em { color: var(--green); font-style: normal; font-weight: 500; }
+
+  .roles-row {
+    display: flex;
+    gap: 1.5rem;
+    margin-top: 2.25rem;
+    flex-wrap: wrap;
+    margin-left: 1rem;
+  }
+  .role-chip {
+    font-family: var(--mono);
+    font-size: 0.8rem;
+    font-weight: 500;
+    color: var(--ink-dim);
+    letter-spacing: 0.04em;
+    text-transform: uppercase;
+  }
+  .role-chip::before { content: '▸ '; color: var(--green); }
+
+  /* HUD */
+  .hud-circle { position: relative; width: 360px; height: 360px; margin: 0 auto; }
+  .hud-circle svg { width: 100%; height: 100%; }
+  .hud-core {
+    position: absolute;
+    inset: 22%;
+    border: 1px solid rgba(94, 232, 154, 0.3);
+    border-radius: 50%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    color: var(--green);
+    font-family: var(--mono);
+    font-size: 0.95rem;
+    font-weight: 500;
+    letter-spacing: 0.05em;
+    text-decoration: none;
+    cursor: pointer;
+    background: radial-gradient(circle, rgba(94, 232, 154, 0.06) 0%, transparent 75%);
+    transition: all 0.35s ease;
+    padding: 1rem;
+  }
+  .hud-core:hover {
+    background: radial-gradient(circle, rgba(94, 232, 154, 0.2) 0%, transparent 80%);
+    border-color: var(--green);
+    box-shadow: 0 0 30px rgba(94, 232, 154, 0.3), inset 0 0 30px rgba(94, 232, 154, 0.12);
+  }
+  .hud-core .label { font-size: 0.65rem; color: var(--ink-mute); letter-spacing: 0.15em; margin-bottom: 0.4rem; text-transform: uppercase; }
+  .hud-core .status-cycle { font-family: var(--mono); font-weight: 700; font-size: 1.1rem; color: var(--green); letter-spacing: 0.04em; min-height: 1.3em; display: block; }
+  .hud-core .divider { width: 40px; height: 1px; background: var(--green); opacity: 0.4; margin: 0.8rem 0; }
+  .hud-core .action { font-size: 0.75rem; color: var(--green); letter-spacing: 0.08em; }
+  .hud-core .action .b { color: var(--ink-mute); }
+
+  .rotating { animation: rotate 22s linear infinite; transform-origin: center; }
+  .rotating-rev { animation: rotate 32s linear infinite reverse; transform-origin: center; }
+  @keyframes rotate { to { transform: rotate(360deg); } }
+
+  .wire-hero { position: absolute; left: 0; top: 0; width: 100%; height: 100%; pointer-events: none; z-index: -1; }
+  .wire-hero svg { width: 100%; height: 100%; overflow: visible; }
+  .wire-path {
+    stroke: var(--green); stroke-width: 1.2; fill: none;
+    filter: drop-shadow(0 0 6px var(--green-glow));
+    stroke-dasharray: 2000; stroke-dashoffset: 2000;
+    animation: drawline 3s 0.4s ease forwards; opacity: 0.7;
+  }
+  @keyframes drawline { to { stroke-dashoffset: 0; } }
+  .wire-node { fill: var(--green); filter: drop-shadow(0 0 8px var(--green-glow)); opacity: 0; animation: fadein 0.4s ease forwards; }
+  .wire-node.n1 { animation-delay: 2.6s; }
+  .wire-node.n2 { animation-delay: 3.1s; }
+  @keyframes fadein { to { opacity: 1; } }
+
+  /* SECTION FRAMEWORK */
+  section { padding: 6.5rem 0; position: relative; }
+  .section-label { font-family: var(--mono); font-size: 0.78rem; font-weight: 500; color: var(--ink-mute); letter-spacing: 0.12em; margin-bottom: 1rem; text-transform: uppercase; }
+  .section-label .bracket { color: var(--green); }
+  h2.section-title { font-family: var(--display); font-weight: 800; font-size: clamp(2rem, 5vw, 3.5rem); line-height: 1.05; letter-spacing: -0.03em; color: var(--ink); margin-bottom: 3.5rem; max-width: 24ch; }
+  h2.section-title .accent { color: var(--green); }
+
+  /* ABOUT */
+  .about-grid { display: grid; grid-template-columns: 1fr 1.6fr; gap: 5rem; align-items: start; }
+  .about-aside { position: sticky; top: 6rem; border-left: 1px solid var(--rule); padding-left: 1.5rem; }
+  .aside-block { margin-bottom: 2.25rem; }
+  .aside-label { font-family: var(--mono); font-size: 0.7rem; color: var(--ink-mute); letter-spacing: 0.15em; text-transform: uppercase; margin-bottom: 0.4rem; }
+  .aside-value { font-family: var(--display); font-weight: 700; font-size: 1.05rem; color: var(--ink); letter-spacing: -0.01em; }
+  .aside-value .accent { color: var(--green); }
+
+  .about-prose p { font-family: var(--mono); font-size: 1.1rem; line-height: 1.75; color: var(--ink); font-weight: 300; margin-bottom: 1.5rem; max-width: 58ch; }
+  .about-prose p strong { font-weight: 500; color: var(--ink); background: linear-gradient(transparent 65%, rgba(94, 232, 154, 0.2) 65%); }
+  .about-prose p em { font-style: normal; color: var(--green); font-weight: 500; }
+
+  .stats-row { display: grid; grid-template-columns: repeat(4, 1fr); gap: 1px; background: var(--rule); border: 1px solid var(--rule); margin-top: 2.5rem; }
+  .stat { background: var(--bg); padding: 1.75rem 1.25rem; text-align: left; }
+  .stat-num { font-family: var(--display); font-weight: 800; font-size: 2rem; color: var(--green); line-height: 1; letter-spacing: -0.02em; }
+  .stat-label { font-family: var(--mono); font-size: 0.72rem; color: var(--ink-dim); letter-spacing: 0.08em; text-transform: uppercase; margin-top: 0.5rem; }
+
+  /* WORK CAROUSEL */
+  .project-panel {
+    background: linear-gradient(180deg, rgba(17,24,33,0.6), rgba(10,14,18,0.9));
+    border: 1px solid var(--rule);
+    border-radius: 4px;
+    padding: 3.5rem;
+    position: relative;
+    overflow: hidden;
+  }
+  .project-panel::before, .project-panel::after { content: ''; position: absolute; width: 48px; height: 48px; box-shadow: 0 0 12px var(--green-glow); }
+  .project-panel::before { top: 0; left: 0; border-top: 2px solid var(--green); border-left: 2px solid var(--green); }
+  .project-panel::after  { bottom: 0; right: 0; border-bottom: 2px solid var(--green); border-right: 2px solid var(--green); }
+
+  .project-grid { display: grid; grid-template-columns: 400px 1fr; gap: 4rem; align-items: center; }
+
+  .project-thumb {
+    width: 400px; height: 400px;
+    border-radius: 50%;
+    overflow: hidden;
+    position: relative;
+    border: 2px solid var(--green);
+    box-shadow: 0 0 40px rgba(94, 232, 154, 0.2), inset 0 0 40px rgba(0,0,0,0.4);
+    flex-shrink: 0;
+  }
+  .thumb-slide { position: absolute; inset: 0; opacity: 0; transition: opacity 0.6s ease; display: flex; flex-direction: column; padding: 2.5rem; }
+  .thumb-slide.active { opacity: 1; }
+
+  /* Slide 1: CI/CD Pipeline dashboard */
+  .thumb-dashboard { background: radial-gradient(circle at 30% 20%, rgba(94,232,154,0.15) 0%, transparent 50%), #0b1118; color: var(--green); font-family: var(--mono); }
+  .thumb-dashboard .tdash-header { display: flex; justify-content: space-between; font-size: 0.6rem; letter-spacing: 0.15em; color: var(--ink-dim); margin-bottom: 1rem; text-transform: uppercase; }
+  .thumb-dashboard .tdash-title { font-weight: 700; font-size: 0.85rem; color: var(--green); margin-bottom: 1rem; letter-spacing: 0.02em; }
+  .thumb-dashboard .gauges { display: grid; grid-template-columns: repeat(3, 1fr); gap: 0.6rem; margin-bottom: 0.8rem; }
+  .gauge { border: 1px solid rgba(94,232,154,0.25); background: rgba(94,232,154,0.04); padding: 0.5rem; border-radius: 2px; }
+  .gauge .gl { font-size: 0.55rem; color: var(--ink-mute); letter-spacing: 0.1em; }
+  .gauge .gv { font-size: 1.05rem; font-weight: 700; color: var(--green); }
+  .thumb-dashboard .chart-area { flex: 1; border: 1px solid rgba(94,232,154,0.2); padding: 0.5rem; position: relative; min-height: 110px; }
+  .thumb-dashboard .chart-area svg { width: 100%; height: 100%; }
+
+  /* Slide 2: GitOps terminal */
+  .thumb-terminal { background: #0a1016; font-family: var(--term); font-size: 0.72rem; line-height: 1.65; color: var(--green); padding-top: 2.2rem; }
+  .thumb-terminal::before { content: '● ● ●'; position: absolute; top: 0.8rem; left: 1.2rem; color: var(--ink-mute); letter-spacing: 0.3em; font-size: 0.6rem; }
+  .thumb-terminal .tt-header { position: absolute; top: 0.7rem; left: 50%; transform: translateX(-50%); font-size: 0.6rem; color: var(--ink-mute); letter-spacing: 0.15em; }
+  .tt-line { white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+  .tt-prompt { color: var(--green); }
+  .tt-user { color: var(--amber); }
+  .tt-path { color: #7ab8e0; }
+  .tt-out { color: var(--ink-dim); }
+  .tt-key { color: var(--green); }
+  .cursor-blink { display: inline-block; width: 7px; height: 0.85em; background: var(--green); vertical-align: text-bottom; animation: blink 1s steps(1) infinite; }
+  @keyframes blink { 50% { opacity: 0; } }
+
+  /* Slide 3: Microservices topology */
+  .thumb-netscan { background: radial-gradient(circle at center, rgba(94,232,154,0.1) 0%, #0a1016 70%); font-family: var(--term); color: var(--green); justify-content: center; align-items: center; text-align: center; }
+  .thumb-netscan .nscan-header { font-size: 0.7rem; letter-spacing: 0.2em; color: var(--ink-dim); text-transform: uppercase; margin-bottom: 1rem; }
+  .thumb-netscan .nscan-viz { flex: 1; display: flex; align-items: center; justify-content: center; width: 100%; }
+  .thumb-netscan .nscan-viz svg { width: 75%; max-width: 220px; }
+  .thumb-netscan .nscan-stats { display: flex; justify-content: space-between; font-size: 0.7rem; color: var(--ink-dim); letter-spacing: 0.08em; margin-top: 0.8rem; }
+  .thumb-netscan .nscan-stats .v { color: var(--green); font-weight: 700; }
+
+  .project-info .tag-open, .project-info .tag-close { font-family: var(--mono); color: var(--ink-mute); font-size: 0.75rem; opacity: 0.7; display: block; }
+  .project-info h3 { font-family: var(--display); font-weight: 800; font-size: clamp(2rem, 4vw, 3rem); color: var(--green); line-height: 1; letter-spacing: -0.02em; margin: 0.3rem 0 1.5rem; }
+  .project-info .project-desc { font-family: var(--mono); font-weight: 300; font-size: 1.05rem; color: var(--ink); line-height: 1.7; margin-bottom: 1.5rem; max-width: 52ch; }
+  .project-info .project-meta { display: flex; gap: 2rem; flex-wrap: wrap; margin-bottom: 2rem; padding-top: 1rem; border-top: 1px solid var(--rule); }
+  .meta-item .meta-label { color: var(--ink-mute); letter-spacing: 0.1em; text-transform: uppercase; display: block; margin-bottom: 0.25rem; font-size: 0.68rem; }
+  .meta-item .meta-value { color: var(--green); font-weight: 500; font-size: 0.78rem; }
+  .project-links { display: flex; gap: 1rem; flex-wrap: wrap; }
+
+  .hex-btn {
+    display: inline-flex; align-items: center; gap: 0.8rem;
+    font-family: var(--mono); font-weight: 500; font-size: 0.82rem;
+    color: var(--green); text-decoration: none;
+    padding: 0.85rem 1.8rem; background: transparent;
+    border: 1.5px solid var(--green);
+    clip-path: polygon(10px 0, calc(100% - 10px) 0, 100% 50%, calc(100% - 10px) 100%, 10px 100%, 0 50%);
+    letter-spacing: 0.05em; cursor: pointer; transition: all 0.3s ease; text-transform: uppercase;
+  }
+  .hex-btn::before { content: '«'; color: var(--green); opacity: 0.85; }
+  .hex-btn::after  { content: '»'; color: var(--green); opacity: 0.85; }
+  .hex-btn:hover { background: rgba(94, 232, 154, 0.12); box-shadow: 0 0 25px rgba(94, 232, 154, 0.35); }
+  .hex-btn.ghost { color: var(--ink-dim); border-color: var(--ink-mute); }
+  .hex-btn.ghost::before, .hex-btn.ghost::after { color: var(--ink-mute); }
+  .hex-btn.ghost:hover { color: var(--green); border-color: var(--green); box-shadow: 0 0 25px rgba(94, 232, 154, 0.35); }
+  .hex-btn.ghost:hover::before, .hex-btn.ghost:hover::after { color: var(--green); }
+
+  .carousel-ctrl { display: flex; align-items: center; gap: 1.5rem; margin-top: 2.5rem; }
+  .ctrl-btn { width: 46px; height: 46px; border: 1px solid var(--ink-mute); border-radius: 50%; display: flex; align-items: center; justify-content: center; color: var(--ink-dim); cursor: pointer; background: transparent; font-size: 1.1rem; transition: all 0.3s ease; font-family: var(--mono); flex-shrink: 0; }
+  .ctrl-btn:hover { border-color: var(--green); color: var(--green); box-shadow: 0 0 10px var(--green-glow); }
+  .carousel-indicator { flex: 1; height: 2px; background: var(--rule); border-radius: 2px; overflow: hidden; position: relative; display: flex; }
+  .carousel-indicator .seg { flex: 1; background: var(--rule); transition: background 0.4s ease; }
+  .carousel-indicator .seg.active { background: var(--green); box-shadow: 0 0 8px var(--green-glow); }
+  .carousel-count { font-family: var(--mono); font-size: 0.82rem; color: var(--ink-dim); letter-spacing: 0.08em; min-width: 50px; text-align: right; }
+  .carousel-count .cur { color: var(--green); font-weight: 500; }
+
+  /* STACK */
+  .stack-row { display: grid; grid-template-columns: 1fr 1fr; gap: 5rem; align-items: center; }
+  .stack-text h3 { font-family: var(--display); font-weight: 800; font-size: clamp(1.75rem, 3.5vw, 2.5rem); line-height: 1.1; color: var(--ink); margin-bottom: 1.5rem; letter-spacing: -0.025em; }
+  .stack-text h3 .accent { color: var(--green); }
+  .stack-text p { font-family: var(--mono); color: var(--ink-dim); font-size: 0.95rem; line-height: 1.75; font-weight: 300; max-width: 42ch; margin-bottom: 2rem; }
+  .stack-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 0.5rem 1.5rem; font-family: var(--mono); font-size: 0.8rem; border-top: 1px solid var(--rule); padding-top: 1.25rem; }
+  .stack-grid-item { display: flex; justify-content: space-between; gap: 0.5rem; padding: 0.4rem 0; border-bottom: 1px solid var(--rule); }
+  .stack-grid-item .sk-name { color: var(--ink-dim); letter-spacing: 0.04em; }
+  .stack-grid-item .sk-name::before { content: '› '; color: var(--green); }
+  .stack-grid-item .sk-value { color: var(--ink); font-weight: 500; text-align: right; }
+
+  .radar { position: relative; width: 420px; height: 420px; margin: 0 auto; }
+  .radar svg { width: 100%; height: 100%; }
+  .radar-center { position: absolute; inset: 32%; display: flex; flex-direction: column; align-items: center; justify-content: center; font-family: var(--mono); color: var(--green); font-size: 1.2rem; letter-spacing: 0.04em; text-align: center; line-height: 1.3; background: radial-gradient(circle, rgba(94, 232, 154, 0.1), transparent 70%); border-radius: 50%; }
+  .radar-center .tag { color: var(--ink-mute); font-size: 0.75rem; display: block; opacity: 0.7; }
+  .radar-center .chip { font-family: var(--display); font-weight: 800; font-size: 1.8rem; letter-spacing: 0.02em; min-width: 3ch; text-shadow: 0 0 14px var(--green-glow); }
+
+  /* EXPERIENCE */
+  .exp-list { display: flex; flex-direction: column; }
+  .exp-item { display: grid; grid-template-columns: 180px 1fr 120px; gap: 3rem; padding: 2.25rem 0; border-top: 1px solid var(--rule); align-items: start; }
+  .exp-item:last-child { border-bottom: 1px solid var(--rule); }
+  .exp-date { font-family: var(--mono); font-size: 0.78rem; color: var(--ink-mute); letter-spacing: 0.06em; padding-top: 0.3rem; text-transform: uppercase; }
+  .exp-role { font-family: var(--display); font-weight: 700; font-size: 1.35rem; color: var(--ink); margin-bottom: 0.3rem; letter-spacing: -0.01em; }
+  .exp-role .accent { color: var(--green); }
+  .exp-company { font-family: var(--mono); font-size: 0.78rem; color: var(--ink-dim); letter-spacing: 0.08em; text-transform: uppercase; margin-bottom: 0.75rem; }
+  .exp-desc { font-family: var(--mono); font-weight: 300; color: var(--ink-dim); font-size: 0.92rem; line-height: 1.65; max-width: 56ch; }
+  .exp-tags { display: flex; flex-direction: column; gap: 0.25rem; font-family: var(--mono); font-size: 0.7rem; color: var(--ink-mute); letter-spacing: 0.08em; text-transform: uppercase; padding-top: 0.35rem; text-align: right; }
+
+  /* CONTACT */
+  .contact { padding: 6rem 0 8rem; }
+  .contact-top { display: grid; grid-template-columns: 1.3fr 1fr; gap: 4rem; align-items: end; margin-bottom: 4rem; }
+  h2.contact-title { font-family: var(--display); font-weight: 800; font-size: clamp(2.25rem, 5.5vw, 4rem); line-height: 1; color: var(--ink); letter-spacing: -0.035em; max-width: 14ch; }
+  h2.contact-title .accent { color: var(--green); }
+  .contact-actions { display: flex; flex-direction: column; gap: 1rem; }
+  .email-big { font-family: var(--display); font-weight: 700; font-size: clamp(1.1rem, 2.2vw, 1.6rem); color: var(--green); text-decoration: none; letter-spacing: -0.01em; padding-bottom: 0.6rem; border-bottom: 1px solid var(--green); display: inline-flex; align-items: center; gap: 0.6rem; width: fit-content; transition: all 0.3s ease; }
+  .email-big::after { content: '↗'; transition: transform 0.3s ease; }
+  .email-big:hover::after { transform: translate(3px, -3px); }
+  .contact-note { font-family: var(--mono); font-size: 0.85rem; color: var(--ink-dim); font-weight: 300; line-height: 1.65; max-width: 38ch; }
+  .contact-note strong { color: var(--green); font-weight: 500; }
+
+  .bubbles-label { font-family: var(--mono); font-size: 0.78rem; color: var(--ink-mute); letter-spacing: 0.15em; text-transform: uppercase; margin-bottom: 2rem; text-align: center; }
+  .bubbles-label .bracket { color: var(--green); }
+
+  .bubbles { position: relative; height: 280px; margin-top: 1rem; }
+  .bubble {
+    position: absolute; border-radius: 50%; display: flex; flex-direction: column;
+    align-items: center; justify-content: center; font-family: var(--mono); font-weight: 500;
+    border: 1.5px solid var(--green); text-decoration: none; color: var(--ink);
+    transition: background 0.4s ease, color 0.4s ease, box-shadow 0.4s ease;
+    cursor: pointer; transform: var(--bubble-transform); will-change: transform;
+    animation: float 6s ease-in-out infinite;
+  }
+  .bubble .sym { color: var(--ink); font-size: 0.8rem; opacity: 0.6; font-weight: 400; }
+  .bubble .name { font-size: 0.95rem; letter-spacing: 0.02em; margin: 0.15rem 0; }
+  .bubble:hover { background: var(--green); color: var(--bg); box-shadow: 0 0 40px var(--green-glow); }
+  .bubble:hover .sym { color: var(--bg); opacity: 0.8; }
+  .bubble.b1 { width: 150px; height: 150px; left: 22%; top: 55%; animation-delay: 0s; }
+  .bubble.b2 { width: 135px; height: 135px; left: 42%; top: 35%; animation-delay: 0.8s; }
+  .bubble.b3 { width: 140px; height: 140px; left: 58%; top: 65%; animation-delay: 1.6s; }
+  .bubble.b4 { width: 125px; height: 125px; left: 78%; top: 40%; animation-delay: 2.4s; }
+  .bubble.filled { background: var(--green); color: var(--bg); box-shadow: 0 0 40px var(--green-glow); }
+  .bubble.filled .sym { color: var(--bg); opacity: 0.8; }
+  @keyframes float { 0%, 100% { transform: var(--bubble-transform) translateY(0); } 50% { transform: var(--bubble-transform) translateY(-10px); } }
+
+  /* FOOTER */
+  footer { border-top: 1px solid var(--rule); padding: 2rem 0; font-family: var(--mono); color: var(--ink-mute); font-size: 0.78rem; }
+  footer .container { display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 1rem; }
+  footer .tag-c { color: var(--green); opacity: 0.7; }
+
+  /* REVEAL */
+  .reveal { opacity: 0; transform: translateY(24px); transition: opacity 0.9s ease, transform 0.9s ease; }
+  .reveal.visible { opacity: 1; transform: translateY(0); }
+
+  /* REDUCED MOTION */
+  @media (prefers-reduced-motion: reduce) {
+    *, *::before, *::after { animation-duration: 0.01ms !important; animation-iteration-count: 1 !important; transition-duration: 0.15s !important; }
+    .bubble { animation: none; }
+    .rotating, .rotating-rev { animation: none; }
+    .wire-path { animation: none; stroke-dashoffset: 0; }
+    .wire-node { opacity: 1; animation: none; }
+    .reveal { opacity: 1; transform: none; }
+  }
+
+  /* RESPONSIVE */
+  @media (max-width: 1024px) {
+    .container { padding: 0 2rem; }
+    .hero-grid, .project-grid, .stack-row, .contact-top, .about-grid { grid-template-columns: 1fr; gap: 3rem; }
+    .hud-circle, .radar, .project-thumb { width: 320px; height: 320px; }
+    .about-aside { position: static; }
+    .exp-item { grid-template-columns: 1fr; gap: 0.6rem; }
+    .exp-tags { flex-direction: row; text-align: left; padding-top: 0.5rem; }
+  }
+  @media (max-width: 700px) {
+    .container { padding: 0 1.25rem; }
+    .nav-group { display: none; }
+    nav .container { justify-content: center; }
+    .project-panel { padding: 2rem; }
+    .hud-circle, .radar, .project-thumb { width: 260px; height: 260px; }
+    .thumb-slide { padding: 1.5rem; }
+    .bubbles { height: auto; display: flex; flex-wrap: wrap; gap: 1rem; justify-content: center; padding: 1rem; }
+    .bubble { position: static; width: 110px !important; height: 110px !important; animation: none; --bubble-transform: none; }
+    .bubble:hover { transform: scale(1.08); }
+    .roles-row { flex-direction: column; gap: 0.4rem; margin-left: 0.5rem; }
+    .hero-positioning { margin-left: 0.5rem; }
+    .stats-row { grid-template-columns: repeat(2, 1fr); }
+    section { padding: 4rem 0; }
+  }
+</style>
+</head>
+<body>
+
+<main>
+  <!-- NAV -->
+  <nav id="mainNav">
+    <div class="container">
+      <div class="nav-group">
+        <a href="#home" class="nav-item"><span class="num">//01</span><span class="tag-open">&lt;</span>Home<span class="tag-close">/&gt;</span></a>
+        <a href="#about" class="nav-item"><span class="num">//02</span><span class="tag-open">&lt;</span>About<span class="tag-close">/&gt;</span></a>
+      </div>
+      <a href="#home" class="logo">/JAJ</a>
+      <div class="nav-group">
+        <a href="#work" class="nav-item"><span class="num">//03</span><span class="tag-open">&lt;</span>Work<span class="tag-close">/&gt;</span></a>
+        <a href="#contact" class="nav-item"><span class="num">//04</span><span class="tag-open">&lt;</span>Contact<span class="tag-close">/&gt;</span></a>
+      </div>
+    </div>
+  </nav>
+
+  <!-- HERO -->
+  <section class="hero" id="home">
+    <div class="wire-hero">
+      <svg preserveAspectRatio="none" viewBox="0 0 1400 760">
+        <path class="wire-path" d="M 80 320 Q 80 500, 260 620 L 720 620"/>
+        <circle class="wire-node n1" cx="80" cy="320" r="5"/>
+        <circle class="wire-node n2" cx="720" cy="620" r="5"/>
+      </svg>
+    </div>
+
+    <div class="container">
+      <div class="hero-grid">
+        <div>
+          <div class="status-pill">
+            <span class="dot"></span>
+            <span><strong>Open</strong> to full-time opportunities — Q2 2026</span>
+          </div>
+
+          <div class="tag-line"><span class="t">&lt;p&gt;</span>This is<span class="t">&lt;/p&gt;</span></div>
+
+          <div class="hero-title-wrap">
+            <span class="tag-h1-open">&lt;h1&gt;</span>
+            <h1 class="hero-title">Jobin <span class="accent">AJ</span></h1>
+            <span class="tag-h1-close">&lt;/h1&gt;</span>
+          </div>
+
+          <p class="hero-positioning">
+            I build <em>CI/CD pipelines that ship code without 3 AM alerts</em>, orchestrate Kubernetes clusters that scale under pressure, and run AI models on GPU infrastructure that actually works in production.
+          </p>
+
+          <div class="roles-row">
+            <span class="role-chip">DevOps Engineer</span>
+            <span class="role-chip">AI Platform Engineer</span>
+            <span class="role-chip">Go Developer</span>
+          </div>
+        </div>
+
+        <!-- HUD -->
+        <div class="hud-circle">
+          <svg viewBox="0 0 360 360">
+            <defs>
+              <filter id="glow">
+                <feGaussianBlur stdDeviation="3" result="blur"/>
+                <feMerge><feMergeNode in="blur"/><feMergeNode in="SourceGraphic"/></feMerge>
+              </filter>
+            </defs>
+            <g class="rotating">
+              <circle cx="180" cy="180" r="170" fill="none" stroke="rgba(94,232,154,0.35)" stroke-width="1" stroke-dasharray="3 8"/>
+              <circle cx="180" cy="10" r="4" fill="#5ee89a" filter="url(#glow)"/>
+              <circle cx="350" cy="180" r="3" fill="#5ee89a" filter="url(#glow)"/>
+              <circle cx="180" cy="350" r="3" fill="#5ee89a" filter="url(#glow)"/>
+              <circle cx="10" cy="180" r="4" fill="#5ee89a" filter="url(#glow)"/>
+            </g>
+            <g class="rotating-rev">
+              <circle cx="180" cy="180" r="140" fill="none" stroke="rgba(94,232,154,0.45)" stroke-width="1.2" stroke-dasharray="40 20 10 20"/>
+              <circle cx="320" cy="180" r="5" fill="#5ee89a" filter="url(#glow)"/>
+              <circle cx="40" cy="180" r="5" fill="#5ee89a" filter="url(#glow)"/>
+            </g>
+            <circle cx="180" cy="180" r="110" fill="none" stroke="rgba(94,232,154,0.2)" stroke-width="0.8" stroke-dasharray="1 3"/>
+            <line x1="180" y1="5" x2="180" y2="25" stroke="#5ee89a" stroke-width="1.2"/>
+            <line x1="180" y1="335" x2="180" y2="355" stroke="#5ee89a" stroke-width="1.2"/>
+            <line x1="5" y1="180" x2="25" y2="180" stroke="#5ee89a" stroke-width="1.2"/>
+            <line x1="335" y1="180" x2="355" y2="180" stroke="#5ee89a" stroke-width="1.2"/>
+          </svg>
+
+          <a href="https://github.com/JobinAj" target="_blank" rel="noopener" class="hud-core" id="hudCore">
+            <span class="label">System Status</span>
+            <span class="status-cycle" id="statusCycle">ONLINE</span>
+            <span class="divider"></span>
+            <span class="action"><span class="b">&lt;</span> View GitHub <span class="b">/&gt;</span></span>
+          </a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ABOUT -->
+  <section id="about">
+    <div class="container">
+      <div class="section-label"><span class="bracket">&lt;</span>ABOUT<span class="bracket">/&gt;</span> — 01</div>
+      <h2 class="section-title">Platform engineering. <span class="accent">One goal:</span> deploy with confidence.</h2>
+
+      <div class="about-grid">
+        <aside class="about-aside">
+          <div class="aside-block">
+            <div class="aside-label">Currently</div>
+            <div class="aside-value">DevOps Engineer <span class="accent">@ Sirpi</span></div>
+          </div>
+          <div class="aside-block">
+            <div class="aside-label">Based in</div>
+            <div class="aside-value">Bangalore · IST (UTC+5:30)</div>
+          </div>
+          <div class="aside-block">
+            <div class="aside-label">Open to</div>
+            <div class="aside-value">Full-time · Contract · <span class="accent">Remote</span></div>
+          </div>
+          <div class="aside-block">
+            <div class="aside-label">Not open to</div>
+            <div class="aside-value">Unpaid internships</div>
+          </div>
+        </aside>
+
+        <div class="about-prose">
+          <p>
+            I work at the <em>seam where development velocity meets system reliability</em> — where a misconfigured pipeline becomes a production outage, where a missing security gate ships a vulnerability, where <strong>a well-orchestrated Kubernetes cluster runs hundreds of workloads without anyone noticing it's there</strong>.
+          </p>
+          <p>
+            My practice spans three connected domains. I design CI/CD pipelines and GitOps workflows that engineering teams actually trust — with security gates baked in, not bolted on. I manage Kubernetes infrastructure on AWS and GCP that scales under pressure without waking anyone at 3 AM. And I'm building in Go: tools, daemons, and the kind of services that run quietly for months.
+          </p>
+          <p>
+            More recently I've been pushing into AI platform engineering — deploying local LLMs on GPU infrastructure, wiring up inference APIs, and automating workflows with n8n. Infrastructure is infrastructure, whether it's running containers or models. If that sounds like your kind of hire — <strong>let's talk</strong>.
+          </p>
+
+          <div class="stats-row">
+            <div class="stat">
+              <div class="stat-num">2y+</div>
+              <div class="stat-label">In Production</div>
+            </div>
+            <div class="stat">
+              <div class="stat-num">5+</div>
+              <div class="stat-label">Projects Shipped</div>
+            </div>
+            <div class="stat">
+              <div class="stat-num">50%</div>
+              <div class="stat-label">Faster Deploys</div>
+            </div>
+            <div class="stat">
+              <div class="stat-num">2</div>
+              <div class="stat-label">Cloud Platforms</div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- WORK -->
+  <section id="work">
+    <div class="container">
+      <div class="section-label"><span class="bracket">&lt;</span>SELECTED_WORK<span class="bracket">/&gt;</span> — 02</div>
+      <h2 class="section-title">Things I've <span class="accent">shipped.</span></h2>
+
+      <div class="project-panel reveal">
+        <div class="project-grid">
+          <!-- Circular thumbnail with 3 slides -->
+          <div class="project-thumb">
+            <!-- SLIDE 1: CI/CD pipeline dashboard -->
+            <div class="thumb-slide thumb-dashboard active" data-slide="0">
+              <div class="tdash-header">
+                <span>/// PIPELINE · CI/CD</span>
+                <span>◉ LIVE</span>
+              </div>
+              <div class="tdash-title">github-actions · prod-deploy</div>
+              <div class="gauges">
+                <div class="gauge"><div class="gl">DEPLOYS</div><div class="gv">847</div></div>
+                <div class="gauge"><div class="gl">SUCCESS</div><div class="gv">99%</div></div>
+                <div class="gauge"><div class="gl">AVG MIN</div><div class="gv">4</div></div>
+              </div>
+              <div class="chart-area">
+                <svg viewBox="0 0 280 90" preserveAspectRatio="none">
+                  <path d="M0,70 L30,62 L60,55 L90,45 L120,50 L150,38 L180,30 L210,35 L240,22 L280,18"
+                        fill="none" stroke="#5ee89a" stroke-width="1.5"/>
+                  <path d="M0,70 L30,62 L60,55 L90,45 L120,50 L150,38 L180,30 L210,35 L240,22 L280,18 L280,90 L0,90 Z"
+                        fill="rgba(94,232,154,0.18)"/>
+                  <g stroke="rgba(94,232,154,0.12)" stroke-width="0.5">
+                    <line x1="0" y1="22" x2="280" y2="22"/>
+                    <line x1="0" y1="45" x2="280" y2="45"/>
+                    <line x1="0" y1="68" x2="280" y2="68"/>
+                  </g>
+                </svg>
+              </div>
+            </div>
+
+            <!-- SLIDE 2: GitOps terminal -->
+            <div class="thumb-slide thumb-terminal" data-slide="1">
+              <div class="tt-header">jobin@k8s-platform — argocd</div>
+              <div class="tt-line"><span class="tt-prompt">➜</span> <span class="tt-user">jobin</span>:<span class="tt-path">~/platform</span>$ argocd app sync prod-api</div>
+              <div class="tt-line tt-out">→ syncing app prod-api...</div>
+              <div class="tt-line tt-out">→ <span class="tt-key">ok</span>  Deployment/api updated</div>
+              <div class="tt-line tt-out">→ <span class="tt-key">ok</span>  Service/api unchanged</div>
+              <div class="tt-line tt-out">→ ✓  health: Healthy · 28s</div>
+              <div class="tt-line"><span class="tt-prompt">➜</span> <span class="tt-user">jobin</span>:<span class="tt-path">~/platform</span>$ kubectl top nodes</div>
+              <div class="tt-line tt-out">NAME        CPU   MEM</div>
+              <div class="tt-line tt-out">worker-01   12%   34%</div>
+              <div class="tt-line tt-out">worker-02    8%   28%</div>
+              <div class="tt-line"><span class="tt-prompt">➜</span> <span class="tt-user">jobin</span>@k8s:~$ <span class="cursor-blink"></span></div>
+            </div>
+
+            <!-- SLIDE 3: Microservices topology -->
+            <div class="thumb-slide thumb-netscan" data-slide="2">
+              <div class="nscan-header">// MICROSERVICES · banking</div>
+              <div class="nscan-viz">
+                <svg viewBox="0 0 220 180">
+                  <circle cx="110" cy="90" r="75" fill="none" stroke="rgba(94,232,154,0.2)" stroke-dasharray="2 4"/>
+                  <circle cx="110" cy="90" r="50" fill="none" stroke="rgba(94,232,154,0.3)" stroke-dasharray="2 4"/>
+                  <circle cx="110" cy="90" r="25" fill="none" stroke="rgba(94,232,154,0.4)"/>
+                  <circle cx="110" cy="90" r="6" fill="#5ee89a"/>
+                  <g fill="#5ee89a">
+                    <circle cx="110" cy="15" r="3.5"/>
+                    <circle cx="175" cy="50" r="3.5"/>
+                    <circle cx="185" cy="130" r="3.5"/>
+                    <circle cx="110" cy="165" r="3.5"/>
+                    <circle cx="45" cy="140" r="3.5"/>
+                    <circle cx="35" cy="60" r="3.5"/>
+                  </g>
+                  <g fill="#5ee89a" opacity="0.75">
+                    <circle cx="140" cy="50" r="2.5"/>
+                    <circle cx="155" cy="120" r="2.5"/>
+                    <circle cx="80" cy="130" r="2.5"/>
+                    <circle cx="70" cy="55" r="2.5"/>
+                  </g>
+                  <g stroke="rgba(94,232,154,0.4)" stroke-width="0.8">
+                    <line x1="110" y1="90" x2="110" y2="15"/>
+                    <line x1="110" y1="90" x2="175" y2="50"/>
+                    <line x1="110" y1="90" x2="185" y2="130"/>
+                    <line x1="110" y1="90" x2="110" y2="165"/>
+                    <line x1="110" y1="90" x2="45" y2="140"/>
+                    <line x1="110" y1="90" x2="35" y2="60"/>
+                  </g>
+                  <g fill="#8a9aad" font-family="monospace" font-size="6">
+                    <text x="115" y="12">account-svc</text>
+                    <text x="148" y="47">policy-svc</text>
+                    <text x="150" y="127">auth-svc</text>
+                    <text x="115" y="178">db-proxy</text>
+                  </g>
+                </svg>
+              </div>
+              <div class="nscan-stats">
+                <span>SVCS: <span class="v">6</span></span>
+                <span>HEALTHY: <span class="v">6</span></span>
+                <span>UPTIME: <span class="v">99.9%</span></span>
+              </div>
+            </div>
+          </div>
+
+          <!-- Info -->
+          <div class="project-info" id="projectInfo"></div>
+        </div>
+
+        <div class="carousel-ctrl">
+          <button class="ctrl-btn" id="prevBtn" aria-label="Previous project">‹</button>
+          <div class="carousel-indicator">
+            <div class="seg active"></div>
+            <div class="seg"></div>
+            <div class="seg"></div>
+          </div>
+          <span class="carousel-count"><span class="cur" id="curSlide">01</span> / 03</span>
+          <button class="ctrl-btn" id="nextBtn" aria-label="Next project">›</button>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- STACK -->
+  <section id="stack">
+    <div class="container">
+      <div class="section-label"><span class="bracket">&lt;</span>STACK<span class="bracket">/&gt;</span> — 03</div>
+      <div class="stack-row">
+        <div class="stack-text">
+          <h3>Tools I <span class="accent">actually</span> reach for.</h3>
+          <p>
+            Kubernetes and Docker for orchestration. GitHub Actions for delivery. Terraform for infra. Prometheus and Grafana for observability. And a growing amount of Go for the tools that tie it all together.
+          </p>
+          <div class="stack-grid">
+            <div class="stack-grid-item"><span class="sk-name">Languages</span><span class="sk-value">Bash · Python · Go</span></div>
+            <div class="stack-grid-item"><span class="sk-name">Orchestration</span><span class="sk-value">Kubernetes · Docker · EKS</span></div>
+            <div class="stack-grid-item"><span class="sk-name">IaC</span><span class="sk-value">Terraform · CloudFormation</span></div>
+            <div class="stack-grid-item"><span class="sk-name">CI / CD</span><span class="sk-value">GitHub Actions · Jenkins</span></div>
+            <div class="stack-grid-item"><span class="sk-name">GitOps</span><span class="sk-value">ArgoCD · FluxCD</span></div>
+            <div class="stack-grid-item"><span class="sk-name">Observability</span><span class="sk-value">Prometheus · Grafana · Datadog</span></div>
+            <div class="stack-grid-item"><span class="sk-name">Security</span><span class="sk-value">SonarQube · Trivy · OWASP ZAP</span></div>
+            <div class="stack-grid-item"><span class="sk-name">Cloud</span><span class="sk-value">AWS · GCP</span></div>
+            <div class="stack-grid-item"><span class="sk-name">Config Mgmt</span><span class="sk-value">Ansible</span></div>
+            <div class="stack-grid-item"><span class="sk-name">Automation</span><span class="sk-value">n8n · Shell</span></div>
+          </div>
+        </div>
+
+        <div class="radar">
+          <svg viewBox="0 0 420 420">
+            <defs>
+              <filter id="glow2">
+                <feGaussianBlur stdDeviation="2.5" result="blur"/>
+                <feMerge><feMergeNode in="blur"/><feMergeNode in="SourceGraphic"/></feMerge>
+              </filter>
+            </defs>
+            <g class="rotating" style="transform-origin: 210px 210px;">
+              <circle cx="210" cy="210" r="200" fill="none" stroke="rgba(94,232,154,0.35)" stroke-width="2" stroke-dasharray="32 8 20 8"/>
+              <circle cx="210" cy="10" r="4" fill="#5ee89a" filter="url(#glow2)"/>
+              <circle cx="410" cy="210" r="4" fill="#5ee89a" filter="url(#glow2)"/>
+              <circle cx="210" cy="410" r="4" fill="#5ee89a" filter="url(#glow2)"/>
+            </g>
+            <g class="rotating-rev" style="transform-origin: 210px 210px;">
+              <circle cx="210" cy="210" r="170" fill="none" stroke="rgba(94,232,154,0.45)" stroke-width="1" stroke-dasharray="2 6"/>
+            </g>
+            <circle cx="210" cy="210" r="140" fill="none" stroke="rgba(94,232,154,0.22)" stroke-width="0.8"/>
+            <circle cx="210" cy="210" r="110" fill="none" stroke="rgba(94,232,154,0.18)" stroke-width="0.8"/>
+            <line x1="210" y1="0" x2="210" y2="20" stroke="#5ee89a" stroke-width="1.5"/>
+            <line x1="210" y1="400" x2="210" y2="420" stroke="#5ee89a" stroke-width="1.5"/>
+            <line x1="0" y1="210" x2="20" y2="210" stroke="#5ee89a" stroke-width="1.5"/>
+            <line x1="400" y1="210" x2="420" y2="210" stroke="#5ee89a" stroke-width="1.5"/>
+          </svg>
+          <div class="radar-center">
+            <span class="tag">&lt;primary&gt;</span>
+            <span class="chip" id="stackChip">K8S</span>
+            <span class="tag">&lt;/primary&gt;</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- EXPERIENCE -->
+  <section id="experience">
+    <div class="container">
+      <div class="section-label"><span class="bracket">&lt;</span>PATH<span class="bracket">/&gt;</span> — 04</div>
+      <h2 class="section-title">Where I've <span class="accent">been.</span></h2>
+
+      <div class="exp-list">
+        <div class="exp-item">
+          <div class="exp-date">Mar 2025 — Present</div>
+          <div>
+            <div class="exp-role">DevOps <span class="accent">Engineer</span></div>
+            <div class="exp-company">Sirpi Product and Services — Bengaluru (On-site)</div>
+            <div class="exp-desc">Building and owning CI/CD pipelines with GitHub Actions — security-gated with SonarQube, Trivy, and OWASP ZAP. Containerising workloads (Node.js, R/Shiny, microservices) on Kubernetes with KEDA autoscaling, FluxCD/ArgoCD GitOps, and External Secrets. Managing AWS and GCP infrastructure, real-time monitoring via Datadog and Grafana, and deploying AI models on GPU hardware. Reduced deployment time by 50%.</div>
+          </div>
+          <div class="exp-tags">K8s<br>GitOps<br>AWS/GCP<br>AI Infra</div>
+        </div>
+
+        <div class="exp-item">
+          <div class="exp-date">Aug 2024 — Dec 2024</div>
+          <div>
+            <div class="exp-role">DevOps <span class="accent">Intern</span></div>
+            <div class="exp-company">High Catch Pvt Ltd — Bengaluru (Remote)</div>
+            <div class="exp-desc">Deployed and managed Docker containers and Kubernetes clusters on AWS EC2. Built monitoring with Prometheus and Grafana. Provisioned infrastructure with Terraform. Contributed to Jenkins CI/CD pipelines and integrated Trivy for container security scanning.</div>
+          </div>
+          <div class="exp-tags">Kubernetes<br>Terraform<br>Jenkins</div>
+        </div>
+
+        <div class="exp-item">
+          <div class="exp-date">2021 — 2024</div>
+          <div>
+            <div class="exp-role">BCA — <span class="accent">9.08 CGPA</span></div>
+            <div class="exp-company">University of Mysore — Karnataka</div>
+            <div class="exp-desc">Bachelor of Computer Application. Spent the time building things in parallel: learning Linux deeply, finding Kubernetes, running self-hosted infrastructure, and figuring out that the engineers who understand how things break are the best ones at keeping them running.</div>
+          </div>
+          <div class="exp-tags">Linux<br>Networking<br>BCA</div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- CONTACT -->
+  <section class="contact" id="contact">
+    <div class="container">
+      <div class="section-label"><span class="bracket">&lt;</span>CONTACT<span class="bracket">/&gt;</span> — 05</div>
+
+      <div class="contact-top">
+        <h2 class="contact-title">Got infra that needs <span class="accent">building</span> — or <span class="accent">automating?</span></h2>
+        <div class="contact-actions">
+          <a class="email-big" href="mailto:jobinaj6361@gmail.com">jobinaj6361@gmail.com</a>
+          <p class="contact-note">
+            Open to <strong>senior DevOps / platform roles</strong> and <strong>short-term consulting engagements</strong>. I reply within 48 hours, usually less. Based in Bangalore — open to remote worldwide.
+          </p>
+        </div>
+      </div>
+
+      <div class="bubbles-label"><span class="bracket">&lt;</span>elsewhere on the network<span class="bracket">/&gt;</span></div>
+
+      <div class="bubbles">
+        <a href="https://github.com/JobinAj" target="_blank" rel="noopener" class="bubble filled b1">
+          <span class="sym">&lt;&gt;</span>
+          <span class="name">GitHub</span>
+          <span class="sym">&lt;/&gt;</span>
+        </a>
+        <a href="https://www.linkedin.com/in/jobin-aj" target="_blank" rel="noopener" class="bubble b2">
+          <span class="sym">&lt;&gt;</span>
+          <span class="name">LinkedIn</span>
+          <span class="sym">&lt;/&gt;</span>
+        </a>
+        <a href="mailto:jobinaj6361@gmail.com" class="bubble b3">
+          <span class="sym">&lt;&gt;</span>
+          <span class="name">Email</span>
+          <span class="sym">&lt;/&gt;</span>
+        </a>
+        <a href="https://github.com/JobinAj" target="_blank" rel="noopener" class="bubble b4">
+          <span class="sym">&lt;&gt;</span>
+          <span class="name">Resume</span>
+          <span class="sym">&lt;/&gt;</span>
+        </a>
+      </div>
+    </div>
+  </section>
+
+  <footer>
+    <div class="container">
+      <div>© 2026 Jobin AJ <span class="tag-c">//</span> All rights reserved</div>
+      <div><span class="tag-c">&lt;/&gt;</span> crafted in Bangalore · vim-bound · caffeinated</div>
+    </div>
+  </footer>
+</main>
+
+<script>
+  const prefersReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+  // NAV SCROLL
+  const nav = document.getElementById('mainNav');
+  window.addEventListener('scroll', () => {
+    nav.classList.toggle('scrolled', window.scrollY > 40);
+  });
+
+  // REVEAL ON SCROLL
+  const observer = new IntersectionObserver(entries => {
+    entries.forEach(e => { if (e.isIntersecting) e.target.classList.add('visible'); });
+  }, { threshold: 0.1 });
+  document.querySelectorAll('.reveal').forEach(el => observer.observe(el));
+
+  // HUD STATUS CYCLE
+  const statusMessages = ['ONLINE', 'AVAILABLE', 'SHIPPING', 'BUILDING', 'K8S READY'];
+  const statusEl = document.getElementById('statusCycle');
+  let sIdx = 0;
+  if (!prefersReducedMotion && statusEl) {
+    setInterval(() => {
+      sIdx = (sIdx + 1) % statusMessages.length;
+      statusEl.style.opacity = '0';
+      setTimeout(() => {
+        statusEl.textContent = statusMessages[sIdx];
+        statusEl.style.transition = 'opacity 0.3s ease';
+        statusEl.style.opacity = '1';
+      }, 250);
+    }, 2400);
+  }
+
+  // STACK CHIP CYCLE
+  const stackLangs = ['K8S', 'DOCKER', 'ARGOCD', 'PROM', 'AWS', 'n8n'];
+  const chipEl = document.getElementById('stackChip');
+  let cIdx = 0;
+  if (!prefersReducedMotion && chipEl) {
+    setInterval(() => {
+      cIdx = (cIdx + 1) % stackLangs.length;
+      chipEl.style.opacity = '0';
+      setTimeout(() => {
+        chipEl.textContent = stackLangs[cIdx];
+        chipEl.style.transition = 'opacity 0.3s ease';
+        chipEl.style.opacity = '1';
+      }, 250);
+    }, 2000);
+  }
+
+  // PROJECTS CAROUSEL
+  const projects = [
+    {
+      name: 'CI/CD Security Pipeline',
+      desc: 'End-to-end GitHub Actions pipeline with multi-stage security gates — SonarQube for code quality, Trivy for container image scanning, and OWASP ZAP for runtime security testing. Ships zero unscanned images to production. Reduced mean deployment time from 8 min to 4 min across all services.',
+      role: 'DevOps Engineer · Sirpi',
+      stack: 'GitHub Actions · Docker · SonarQube · Trivy',
+      year: '2025',
+      links: [
+        { label: 'GitHub', href: 'https://github.com/JobinAj', primary: true },
+        { label: 'LinkedIn', href: 'https://www.linkedin.com/in/jobin-aj', primary: false }
+      ]
+    },
+    {
+      name: 'GitOps K8s Platform',
+      desc: 'Multi-application Kubernetes platform with GitOps delivery via FluxCD and ArgoCD. Image-based deployments trigger automatically on push. Secrets managed via External Secrets Operator, KEDA autoscaling handles traffic spikes, and Prometheus + Grafana + Datadog give full observability across all clusters.',
+      role: 'Platform Engineer · Sirpi',
+      stack: 'Kubernetes · FluxCD · ArgoCD · KEDA · Prometheus',
+      year: '2025',
+      links: [
+        { label: 'GitHub', href: 'https://github.com/JobinAj', primary: true },
+        { label: 'LinkedIn', href: 'https://www.linkedin.com/in/jobin-aj', primary: false }
+      ]
+    },
+    {
+      name: 'Banking Microservices',
+      desc: 'Mavenized Spring Boot microservice platform on AWS RDS MySQL, automating account management and policy operations via REST APIs. Jenkins + Docker CI/CD pipeline cut build and deploy times by 40%. Terraform and Ansible provisioned the full test infrastructure. Prometheus and Grafana provided production observability.',
+      role: 'Lead Engineer',
+      stack: 'AWS · Spring Boot · Jenkins · Docker · Terraform · Ansible',
+      year: '2024',
+      links: [
+        { label: 'GitHub', href: 'https://github.com/JobinAj', primary: true },
+        { label: 'LinkedIn', href: 'https://www.linkedin.com/in/jobin-aj', primary: false }
+      ]
+    }
+  ];
+
+  const projectInfo = document.getElementById('projectInfo');
+  const thumbSlides = document.querySelectorAll('.thumb-slide');
+  const segs = document.querySelectorAll('.carousel-indicator .seg');
+  const curSlide = document.getElementById('curSlide');
+  let pIdx = 0;
+
+  function renderProject(i) {
+    const p = projects[i];
+    projectInfo.innerHTML = `
+      <span class="tag-open">&lt;project id="${String(i + 1).padStart(2, '0')}"&gt;</span>
+      <h3>${p.name}</h3>
+      <p class="project-desc">${p.desc}</p>
+      <div class="project-meta">
+        <div class="meta-item">
+          <span class="meta-label">Role</span>
+          <span class="meta-value">${p.role}</span>
+        </div>
+        <div class="meta-item">
+          <span class="meta-label">Stack</span>
+          <span class="meta-value">${p.stack}</span>
+        </div>
+        <div class="meta-item">
+          <span class="meta-label">Year</span>
+          <span class="meta-value">${p.year}</span>
+        </div>
+      </div>
+      <div class="project-links">
+        ${p.links.map(l => `<a href="${l.href}" target="_blank" rel="noopener" class="hex-btn${l.primary ? '' : ' ghost'}">${l.label}</a>`).join('')}
+      </div>
+      <span class="tag-close">&lt;/project&gt;</span>
+    `;
+    thumbSlides.forEach((s, idx) => s.classList.toggle('active', idx === i));
+    segs.forEach((s, idx) => s.classList.toggle('active', idx === i));
+    if (curSlide) curSlide.textContent = String(i + 1).padStart(2, '0');
+  }
+
+  document.getElementById('prevBtn').addEventListener('click', () => {
+    pIdx = (pIdx - 1 + projects.length) % projects.length;
+    renderProject(pIdx);
+  });
+  document.getElementById('nextBtn').addEventListener('click', () => {
+    pIdx = (pIdx + 1) % projects.length;
+    renderProject(pIdx);
+  });
+
+  renderProject(0);
+</script>
+
+</body>
+</html>
