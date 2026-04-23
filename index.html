@@ -516,6 +516,25 @@
   .bubble.filled .sym { color: var(--bg); opacity: 0.8; }
   @keyframes float { 0%, 100% { transform: var(--bubble-transform) translateY(0); } 50% { transform: var(--bubble-transform) translateY(-10px); } }
 
+  /* PROJECT TYPE BADGE */
+  .project-type-badge { display: inline-block; font-family: var(--mono); font-size: 0.65rem; font-weight: 600; letter-spacing: 0.18em; text-transform: uppercase; padding: 0.2rem 0.65rem; border-radius: 2px; margin-bottom: 0.6rem; }
+  .project-type-badge.work { background: rgba(94,232,154,0.12); color: var(--green); border: 1px solid rgba(94,232,154,0.3); }
+  .project-type-badge.personal { background: rgba(232,185,110,0.12); color: var(--amber); border: 1px solid rgba(232,185,110,0.3); }
+
+  /* CERTIFICATIONS */
+  .certs-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 1.5rem; }
+  .cert-card { background: var(--panel); border: 1px solid var(--rule); padding: 1.75rem; position: relative; transition: border-color 0.3s ease; }
+  .cert-card::before { content: ''; position: absolute; top: 0; left: 0; width: 3px; height: 100%; background: var(--green); opacity: 0.35; transition: opacity 0.3s ease; }
+  .cert-card:hover { border-color: rgba(94,232,154,0.3); }
+  .cert-card:hover::before { opacity: 1; }
+  .cert-issuer { font-family: var(--mono); font-size: 0.68rem; color: var(--green); letter-spacing: 0.12em; text-transform: uppercase; margin-bottom: 0.5rem; }
+  .cert-name { font-family: var(--display); font-weight: 700; font-size: 0.92rem; color: var(--ink); line-height: 1.35; margin-bottom: 1rem; letter-spacing: -0.01em; }
+  .cert-links { display: flex; gap: 0.85rem; flex-wrap: wrap; align-items: center; }
+  .cert-link { font-family: var(--mono); font-size: 0.7rem; color: var(--ink-dim); letter-spacing: 0.06em; text-decoration: none; border-bottom: 1px solid var(--rule); padding-bottom: 0.15rem; transition: color 0.25s ease, border-color 0.25s ease; }
+  .cert-link:hover { color: var(--green); border-color: var(--green); }
+  .cert-link.badge { color: var(--amber); border-color: rgba(232,185,110,0.3); }
+  .cert-link.badge:hover { border-color: var(--amber); }
+
   /* FOOTER */
   footer { border-top: 1px solid var(--rule); padding: 2rem 0; font-family: var(--mono); color: var(--ink-mute); font-size: 0.78rem; }
   footer .container { display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 1rem; }
@@ -544,6 +563,7 @@
     .about-aside { align-items: center; }
     .exp-item { grid-template-columns: 1fr; gap: 0.6rem; }
     .exp-tags { flex-direction: row; text-align: left; padding-top: 0.5rem; }
+    .certs-grid { grid-template-columns: repeat(2, 1fr); }
   }
   @media (max-width: 700px) {
     .container { padding: 0 1.25rem; }
@@ -557,6 +577,7 @@
     .bubble { position: static; width: 110px !important; height: 110px !important; animation: none; --bubble-transform: none; }
     .bubble:hover { transform: scale(1.08); }
     .roles-row { flex-direction: column; gap: 0.4rem; margin-left: 0.5rem; }
+    .certs-grid { grid-template-columns: 1fr; }
     .hero-positioning { margin-left: 0.5rem; }
     .stats-row { grid-template-columns: repeat(2, 1fr); }
     section { padding: 4rem 0; }
@@ -807,7 +828,7 @@
             </div>
 
             <!-- SLIDE 3: Microservices topology -->
-            <div class="thumb-slide thumb-netscan" data-slide="2">
+            <div class="thumb-slide thumb-netscan" data-slide="2" style="display:flex;flex-direction:column">
               <div class="nscan-header">// MICROSERVICES · banking</div>
               <div class="nscan-viz">
                 <svg viewBox="0 0 220 180">
@@ -853,6 +874,143 @@
             </div>
           </div>
 
+            <!-- SLIDE 4: AI Platform / GPU routing -->
+            <div class="thumb-slide thumb-netscan" data-slide="3">
+              <div class="nscan-header">// GPU ROUTING · AI PLATFORM</div>
+              <div class="nscan-viz">
+                <svg viewBox="0 0 220 165">
+                  <rect x="82" y="60" width="56" height="32" rx="2" fill="rgba(94,232,154,0.12)" stroke="rgba(94,232,154,0.6)" stroke-width="1"/>
+                  <text x="110" y="74" text-anchor="middle" fill="#5ee89a" font-size="6.5" font-family="monospace" font-weight="700">REDIS</text>
+                  <text x="110" y="85" text-anchor="middle" fill="#8a9aad" font-size="5.5" font-family="monospace">QUEUE</text>
+                  <rect x="4" y="8" width="60" height="32" rx="2" fill="rgba(94,232,154,0.07)" stroke="rgba(94,232,154,0.35)" stroke-width="0.8"/>
+                  <text x="34" y="20" text-anchor="middle" fill="#8a9aad" font-size="5.5" font-family="monospace">4GB VRAM</text>
+                  <text x="34" y="32" text-anchor="middle" fill="#5ee89a" font-size="5.5" font-family="monospace">&lt;100MB</text>
+                  <rect x="4" y="62" width="60" height="32" rx="2" fill="rgba(94,232,154,0.07)" stroke="rgba(94,232,154,0.35)" stroke-width="0.8"/>
+                  <text x="34" y="74" text-anchor="middle" fill="#8a9aad" font-size="5.5" font-family="monospace">8GB × 2</text>
+                  <text x="34" y="86" text-anchor="middle" fill="#5ee89a" font-size="5.5" font-family="monospace">500MB–2GB</text>
+                  <rect x="4" y="116" width="60" height="32" rx="2" fill="rgba(94,232,154,0.07)" stroke="rgba(94,232,154,0.35)" stroke-width="0.8"/>
+                  <text x="34" y="128" text-anchor="middle" fill="#8a9aad" font-size="5.5" font-family="monospace">16GB VRAM</text>
+                  <text x="34" y="140" text-anchor="middle" fill="#5ee89a" font-size="5.5" font-family="monospace">&gt;2GB</text>
+                  <rect x="156" y="52" width="60" height="50" rx="2" fill="rgba(94,232,154,0.1)" stroke="rgba(94,232,154,0.5)" stroke-width="1"/>
+                  <text x="186" y="68" text-anchor="middle" fill="#8a9aad" font-size="5.5" font-family="monospace">FluxCD</text>
+                  <text x="186" y="80" text-anchor="middle" fill="#5ee89a" font-size="5.5" font-family="monospace">GitOps</text>
+                  <text x="186" y="92" text-anchor="middle" fill="#8a9aad" font-size="5" font-family="monospace">+ Vault</text>
+                  <line x1="82" y1="70" x2="64" y2="24" stroke="rgba(94,232,154,0.5)" stroke-width="0.8" stroke-dasharray="2 2"/>
+                  <line x1="82" y1="76" x2="64" y2="78" stroke="rgba(94,232,154,0.5)" stroke-width="0.8" stroke-dasharray="2 2"/>
+                  <line x1="82" y1="83" x2="64" y2="130" stroke="rgba(94,232,154,0.5)" stroke-width="0.8" stroke-dasharray="2 2"/>
+                  <line x1="138" y1="76" x2="156" y2="77" stroke="rgba(94,232,154,0.6)" stroke-width="1"/>
+                </svg>
+              </div>
+              <div class="nscan-stats">
+                <span>VRAM: <span class="v">4-16GB</span></span>
+                <span>GITOPS: <span class="v">FluxCD</span></span>
+                <span>NODES: <span class="v">3</span></span>
+              </div>
+            </div>
+
+            <!-- SLIDE 5: eCommerce OTel / distributed traces -->
+            <div class="thumb-slide thumb-terminal" data-slide="4">
+              <div class="tt-header">jaeger · ecommerce-traces</div>
+              <div class="tt-line tt-out">TraceID: <span class="tt-key">b3c9fa2d...</span></div>
+              <div class="tt-line"><span style="color:#e87c5e">✗</span> payment-svc   <span class="tt-out">42ms</span></div>
+              <div class="tt-line tt-out">&nbsp;&nbsp;└ cart-svc    <span class="tt-key">12ms ✓</span></div>
+              <div class="tt-line tt-out">&nbsp;&nbsp;└ product-svc <span class="tt-key">8ms  ✓</span></div>
+              <div class="tt-line"><span style="color:#e87c5e">  gRPC: UNAVAILABLE</span></div>
+              <div class="tt-line tt-out">error rate: <span style="color:#e87c5e;font-weight:700">7.04%</span></div>
+              <div class="tt-line tt-out">latency P95: <span class="tt-key">248ms</span></div>
+              <div class="tt-line"><span class="tt-prompt">➜</span> <span class="tt-user">chaos</span>: flagd inject <span class="cursor-blink"></span></div>
+            </div>
+
+            <!-- SLIDE 6: LLM Observability stack -->
+            <div class="thumb-slide thumb-dashboard" data-slide="5">
+              <div class="tdash-header">
+                <span>/// LLM · LANGFUSE</span>
+                <span>◉ LIVE</span>
+              </div>
+              <div class="tdash-title">ollama · litellm-proxy</div>
+              <div class="gauges">
+                <div class="gauge"><div class="gl">TRACES</div><div class="gv">400+</div></div>
+                <div class="gauge"><div class="gl">OBS</div><div class="gv">1.3k</div></div>
+                <div class="gauge"><div class="gl">P95ms</div><div class="gv">124</div></div>
+              </div>
+              <div class="chart-area">
+                <svg viewBox="0 0 280 90" preserveAspectRatio="none">
+                  <path d="M0,65 L28,58 L55,50 L80,54 L105,42 L130,36 L155,44 L180,30 L205,24 L235,27 L265,18 L280,16" fill="none" stroke="#5ee89a" stroke-width="1.5"/>
+                  <path d="M0,65 L28,58 L55,50 L80,54 L105,42 L130,36 L155,44 L180,30 L205,24 L235,27 L265,18 L280,16 L280,90 L0,90 Z" fill="rgba(94,232,154,0.18)"/>
+                  <g stroke="rgba(94,232,154,0.1)" stroke-width="0.5">
+                    <line x1="0" y1="20" x2="280" y2="20"/>
+                    <line x1="0" y1="45" x2="280" y2="45"/>
+                    <line x1="0" y1="70" x2="280" y2="70"/>
+                  </g>
+                </svg>
+              </div>
+            </div>
+
+            <!-- SLIDE 7: K8s on AWS EKS -->
+            <div class="thumb-slide thumb-netscan" data-slide="6">
+              <div class="nscan-header">// AWS EKS · KUBERNETES</div>
+              <div class="nscan-viz">
+                <svg viewBox="0 0 220 175">
+                  <rect x="25" y="28" width="170" height="110" rx="4" fill="none" stroke="rgba(94,232,154,0.25)" stroke-dasharray="4 4" stroke-width="1"/>
+                  <text x="110" y="20" text-anchor="middle" fill="#8a9aad" font-size="6.5" font-family="monospace">AWS EKS CLUSTER</text>
+                  <circle cx="72" cy="83" r="22" fill="rgba(94,232,154,0.08)" stroke="rgba(94,232,154,0.55)" stroke-width="1"/>
+                  <text x="72" y="80" text-anchor="middle" fill="#5ee89a" font-size="6" font-family="monospace">Pod</text>
+                  <text x="72" y="90" text-anchor="middle" fill="#8a9aad" font-size="5" font-family="monospace">nginx</text>
+                  <circle cx="148" cy="83" r="22" fill="rgba(94,232,154,0.08)" stroke="rgba(94,232,154,0.55)" stroke-width="1"/>
+                  <text x="148" y="80" text-anchor="middle" fill="#5ee89a" font-size="6" font-family="monospace">Pod</text>
+                  <text x="148" y="90" text-anchor="middle" fill="#8a9aad" font-size="5" font-family="monospace">app</text>
+                  <rect x="82" y="120" width="56" height="18" rx="2" fill="rgba(94,232,154,0.12)" stroke="rgba(94,232,154,0.4)" stroke-width="0.8"/>
+                  <text x="110" y="132" text-anchor="middle" fill="#5ee89a" font-size="5.5" font-family="monospace">LoadBalancer</text>
+                  <rect x="82" y="2" width="56" height="18" rx="2" fill="rgba(232,185,110,0.12)" stroke="rgba(232,185,110,0.35)" stroke-width="0.8"/>
+                  <text x="110" y="14" text-anchor="middle" fill="#e8b96e" font-size="5.5" font-family="monospace">AWS S3</text>
+                  <line x1="110" y1="20" x2="110" y2="28" stroke="rgba(232,185,110,0.35)" stroke-width="0.7"/>
+                  <line x1="72"  y1="105" x2="92"  y2="120" stroke="rgba(94,232,154,0.35)" stroke-width="0.7"/>
+                  <line x1="148" y1="105" x2="128" y2="120" stroke="rgba(94,232,154,0.35)" stroke-width="0.7"/>
+                  <text x="110" y="158" text-anchor="middle" fill="#4a5568" font-size="5.5" font-family="monospace">Terraform IaC</text>
+                </svg>
+              </div>
+              <div class="nscan-stats">
+                <span>CLOUD: <span class="v">AWS</span></span>
+                <span>IaC: <span class="v">Terraform</span></span>
+                <span>STATUS: <span class="v">HEALTHY</span></span>
+              </div>
+            </div>
+
+            <!-- SLIDE 8: Nike CI/CD pipeline -->
+            <div class="thumb-slide thumb-dashboard" data-slide="7">
+              <div class="tdash-header">
+                <span>/// JENKINS · DEVSECOPS</span>
+                <span>◉ PASS</span>
+              </div>
+              <div class="tdash-title">nike-store · full pipeline</div>
+              <div class="gauges">
+                <div class="gauge"><div class="gl">STAGES</div><div class="gv">7</div></div>
+                <div class="gauge"><div class="gl">SCAN</div><div class="gv">PASS</div></div>
+                <div class="gauge"><div class="gl">DEPLOY</div><div class="gv">EKS</div></div>
+              </div>
+              <div class="chart-area" style="display:flex;flex-direction:column;gap:4px;padding:8px 6px;min-height:100px;justify-content:center">
+                <div style="display:flex;align-items:center;gap:6px;font-size:0.55rem;font-family:monospace"><span style="color:#5ee89a">✓</span><span style="color:#8a9aad">SonarQube Analysis</span></div>
+                <div style="display:flex;align-items:center;gap:6px;font-size:0.55rem;font-family:monospace"><span style="color:#5ee89a">✓</span><span style="color:#8a9aad">Trivy FS Scan</span></div>
+                <div style="display:flex;align-items:center;gap:6px;font-size:0.55rem;font-family:monospace"><span style="color:#5ee89a">✓</span><span style="color:#8a9aad">Docker Build &amp; Push</span></div>
+                <div style="display:flex;align-items:center;gap:6px;font-size:0.55rem;font-family:monospace"><span style="color:#5ee89a">✓</span><span style="color:#8a9aad">Trivy Image Scan</span></div>
+                <div style="display:flex;align-items:center;gap:6px;font-size:0.55rem;font-family:monospace"><span style="color:#5ee89a">✓</span><span style="color:#8a9aad">ArgoCD Deploy → EKS</span></div>
+                <div style="display:flex;align-items:center;gap:6px;font-size:0.55rem;font-family:monospace"><span style="color:#5ee89a">✓</span><span style="color:#8a9aad">Prometheus + Grafana</span></div>
+              </div>
+            </div>
+
+            <!-- SLIDE 9: YouTube GitLab CI/CD -->
+            <div class="thumb-slide thumb-terminal" data-slide="8">
+              <div class="tt-header">gitlab-ci · youtube-app</div>
+              <div class="tt-line tt-out">▸ stage: <span class="tt-key">build</span></div>
+              <div class="tt-line tt-out">&nbsp;&nbsp;docker build -t youtube-app ✓</div>
+              <div class="tt-line tt-out">▸ stage: <span class="tt-key">scan</span></div>
+              <div class="tt-line tt-out">&nbsp;&nbsp;trivy: <span class="tt-key">0 critical</span> ✓</div>
+              <div class="tt-line tt-out">&nbsp;&nbsp;sonarqube: <span class="tt-key">passed</span> ✓</div>
+              <div class="tt-line tt-out">▸ stage: <span class="tt-key">deploy</span></div>
+              <div class="tt-line tt-out">&nbsp;&nbsp;push to AWS EC2 ✓</div>
+              <div class="tt-line"><span class="tt-prompt">➜</span> Pipeline <span class="tt-key">passed</span> <span class="cursor-blink"></span></div>
+            </div>
+
           <!-- Info -->
           <div class="project-info" id="projectInfo"></div>
         </div>
@@ -863,8 +1021,14 @@
             <div class="seg active"></div>
             <div class="seg"></div>
             <div class="seg"></div>
+            <div class="seg"></div>
+            <div class="seg"></div>
+            <div class="seg"></div>
+            <div class="seg"></div>
+            <div class="seg"></div>
+            <div class="seg"></div>
           </div>
-          <span class="carousel-count"><span class="cur" id="curSlide">01</span> / 03</span>
+          <span class="carousel-count"><span class="cur" id="curSlide">01</span> / 09</span>
           <button class="ctrl-btn" id="nextBtn" aria-label="Next project">›</button>
         </div>
       </div>
@@ -969,10 +1133,79 @@
     </div>
   </section>
 
+  <!-- CERTIFICATIONS -->
+  <section id="certifications">
+    <div class="container">
+      <div class="section-label"><span class="bracket">&lt;</span>CERTIFICATIONS<span class="bracket">/&gt;</span> — 05</div>
+      <h2 class="section-title">Verified <span class="accent">credentials.</span></h2>
+
+      <div class="certs-grid reveal">
+        <div class="cert-card">
+          <div class="cert-issuer">Anthropic</div>
+          <div class="cert-name">Claude Code in Action</div>
+          <div class="cert-links">
+            <a class="cert-link" href="https://verify.skilljar.com/c/4k9dkhzdakiy" target="_blank" rel="noopener">View Certificate ↗</a>
+          </div>
+        </div>
+
+        <div class="cert-card">
+          <div class="cert-issuer">StarAgile · IBM</div>
+          <div class="cert-name">Certified DevOps Engineer</div>
+          <div class="cert-links">
+            <a class="cert-link" href="https://drive.google.com/file/d/12DtctVfeoL3hoj-U4AMXdcqWtTV-3cGw/view?usp=sharing" target="_blank" rel="noopener">Certificate ↗</a>
+            <a class="cert-link badge" href="https://www.credly.com/badges/0fb93017-d5e9-4fc5-9864-cf0e4eb494b3/public_url" target="_blank" rel="noopener">Badge ↗</a>
+          </div>
+        </div>
+
+        <div class="cert-card">
+          <div class="cert-issuer">IBM</div>
+          <div class="cert-name">Scalable Web Applications on Kubernetes</div>
+          <div class="cert-links">
+            <a class="cert-link" href="https://bit.ly/3BM7l2i" target="_blank" rel="noopener">View Certificate ↗</a>
+          </div>
+        </div>
+
+        <div class="cert-card">
+          <div class="cert-issuer">IBM</div>
+          <div class="cert-name">Docker Essentials: A Developer Introduction</div>
+          <div class="cert-links">
+            <a class="cert-link" href="https://courses.staragile.skillsnetwork.site/certificates/2bf2c3b701964c0288280c4516d3e48c" target="_blank" rel="noopener">Certificate ↗</a>
+            <a class="cert-link badge" href="https://www.credly.com/badges/2cf2f33f-e58f-4b3c-9062-f58b0c2fd8e1/public_url" target="_blank" rel="noopener">Badge ↗</a>
+          </div>
+        </div>
+
+        <div class="cert-card">
+          <div class="cert-issuer">IBM</div>
+          <div class="cert-name">DevOps Fundamentals</div>
+          <div class="cert-links">
+            <a class="cert-link" href="https://courses.staragile.skillsnetwork.site/certificates/6947dcc9b47a47719513a5d2c114224b" target="_blank" rel="noopener">View Certificate ↗</a>
+          </div>
+        </div>
+
+        <div class="cert-card">
+          <div class="cert-issuer">IBM</div>
+          <div class="cert-name">Python for Data Science, AI &amp; Development</div>
+          <div class="cert-links">
+            <a class="cert-link" href="https://courses.staragile.skillsnetwork.site/certificates/006e5de200814d77b34fe4dd096c3f5f" target="_blank" rel="noopener">Certificate ↗</a>
+            <a class="cert-link badge" href="https://www.credly.com/badges/6e980432-8883-443e-8f73-7ac8ac5f4afd/public_url" target="_blank" rel="noopener">Badge ↗</a>
+          </div>
+        </div>
+
+        <div class="cert-card">
+          <div class="cert-issuer">IICT Bangalore</div>
+          <div class="cert-name">Diploma in E-Office Management</div>
+          <div class="cert-links">
+            <a class="cert-link" href="https://drive.google.com/file/d/1GZ4Gqyt6BT7chrGNXSt5wraOelsNzgJW/view?usp=drivesdk" target="_blank" rel="noopener">View Certificate ↗</a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
   <!-- CONTACT -->
   <section class="contact" id="contact">
     <div class="container">
-      <div class="section-label"><span class="bracket">&lt;</span>CONTACT<span class="bracket">/&gt;</span> — 05</div>
+      <div class="section-label"><span class="bracket">&lt;</span>CONTACT<span class="bracket">/&gt;</span> — 06</div>
 
       <div class="contact-top">
         <h2 class="contact-title">Got infra that needs <span class="accent">building</span> — or <span class="accent">automating?</span></h2>
@@ -1070,9 +1303,10 @@
   const projects = [
     {
       name: 'CI/CD Security Pipeline',
-      desc: 'End-to-end GitHub Actions pipeline with multi-stage security gates — SonarQube for code quality, Trivy for container image scanning, and OWASP ZAP for runtime security testing. Ships zero unscanned images to production. Reduced mean deployment time from 8 min to 4 min across all services.',
+      type: 'work',
+      desc: 'End-to-end GitHub Actions pipeline with multi-stage security gates — SonarQube for code quality, Trivy for container image scanning, and OWASP ZAP for runtime security testing. Ships zero unscanned images to production. Reduced mean deployment time from 8 min to 4 min.',
       role: 'DevOps Engineer · Sirpi',
-      stack: 'GitHub Actions · Docker · SonarQube · Trivy',
+      stack: 'GitHub Actions · Docker · SonarQube · Trivy · OWASP ZAP',
       year: '2025',
       links: [
         { label: 'GitHub', href: 'https://github.com/JobinAj', primary: true },
@@ -1081,9 +1315,10 @@
     },
     {
       name: 'GitOps K8s Platform',
-      desc: 'Multi-application Kubernetes platform with GitOps delivery via FluxCD and ArgoCD. Image-based deployments trigger automatically on push. Secrets managed via External Secrets Operator, KEDA autoscaling handles traffic spikes, and Prometheus + Grafana + Datadog give full observability across all clusters.',
+      type: 'work',
+      desc: 'Multi-application Kubernetes platform with GitOps delivery via FluxCD and ArgoCD. Image-based deployments trigger automatically on push. Secrets via External Secrets Operator, KEDA autoscaling handles traffic spikes, Prometheus + Grafana + Datadog for full observability.',
       role: 'Platform Engineer · Sirpi',
-      stack: 'Kubernetes · FluxCD · ArgoCD · KEDA · Prometheus',
+      stack: 'Kubernetes · FluxCD · ArgoCD · KEDA · Prometheus · Datadog',
       year: '2025',
       links: [
         { label: 'GitHub', href: 'https://github.com/JobinAj', primary: true },
@@ -1092,13 +1327,81 @@
     },
     {
       name: 'Banking Microservices',
-      desc: 'Mavenized Spring Boot microservice platform on AWS RDS MySQL, automating account management and policy operations via REST APIs. Jenkins + Docker CI/CD pipeline cut build and deploy times by 40%. Terraform and Ansible provisioned the full test infrastructure. Prometheus and Grafana provided production observability.',
+      type: 'work',
+      desc: 'Mavenized Spring Boot microservice platform on AWS RDS MySQL, automating account management and policy operations via REST APIs. Jenkins + Docker CI/CD cut build and deploy times by 40%. Terraform and Ansible provisioned the full test infrastructure.',
       role: 'Lead Engineer',
       stack: 'AWS · Spring Boot · Jenkins · Docker · Terraform · Ansible',
       year: '2024',
       links: [
         { label: 'GitHub', href: 'https://github.com/JobinAj', primary: true },
         { label: 'LinkedIn', href: 'https://www.linkedin.com/in/jobin-aj', primary: false }
+      ]
+    },
+    {
+      name: 'Scalable AI Platform',
+      type: 'personal',
+      desc: 'Conceptual architecture for async AI workloads across heterogeneous GPU clusters. Redis-backed intelligent routing: files <100MB → 4GB VRAM nodes, 500MB–2GB → dual 8GB nodes, >2GB → 16GB node. FluxCD GitOps, HashiCorp Vault for secrets, NVIDIA DCGM + Prometheus + Grafana observability. Future: MCP AI agents for natural-language metric queries.',
+      role: 'Architecture Design',
+      stack: 'FluxCD · Redis · NVIDIA DCGM · Prometheus · Grafana · Vault',
+      year: '2025',
+      links: [
+        { label: 'LinkedIn', href: 'https://www.linkedin.com/in/jobin-aj', primary: true }
+      ]
+    },
+    {
+      name: 'eCommerce OTel Demo',
+      type: 'personal',
+      desc: 'Production-grade microservices in Go + gRPC on AWS EKS with full OpenTelemetry observability. Chaos experiments via flagd/OpenFeature validated the pipeline — Grafana caught 7% error-rate spikes, Jaeger pinpointed exact gRPC failure points. Stripe Mock, React UI, RDS Postgres, VPC Lattice, 4000+ Locust requests.',
+      role: 'Platform Engineer',
+      stack: 'Go · gRPC · AWS EKS · OpenTelemetry · Jaeger · Grafana · Locust',
+      year: '2025',
+      links: [
+        { label: 'GitHub', href: 'https://github.com/JobinAj/ecommerce-opentelemetry-demo', primary: true },
+        { label: 'LinkedIn', href: 'https://www.linkedin.com/in/jobin-aj', primary: false }
+      ]
+    },
+    {
+      name: 'LLM Observability Stack',
+      type: 'personal',
+      desc: 'Ollama + LiteLLM + Langfuse giving production-grade visibility into local LLM inference. Single API entry point across multiple Ollama instances (Qwen3-VL, Gemma3). 400+ traces, 1.3k observations — full request/response tracing, P95 latency, usage analytics, and prompt debugging.',
+      role: 'AI Platform Engineer · Sirpi',
+      stack: 'Ollama · LiteLLM · Langfuse · Prometheus',
+      year: '2025',
+      links: [
+        { label: 'LinkedIn', href: 'https://www.linkedin.com/in/jobin-aj', primary: true }
+      ]
+    },
+    {
+      name: 'K8s App on AWS EKS',
+      type: 'personal',
+      desc: 'Containerised application deployed on AWS EKS using Kubernetes and Terraform IaC. Docker packaging, full Kubernetes orchestration (Pods, Deployments, Services, LoadBalancer), AWS S3 integration, and infrastructure provisioned end-to-end with Terraform.',
+      role: 'DevOps Engineer',
+      stack: 'AWS EKS · Kubernetes · Docker · Terraform · S3',
+      year: '2024',
+      links: [
+        { label: 'GitHub', href: 'https://github.com/JobinAj', primary: true }
+      ]
+    },
+    {
+      name: 'Nike Store CI/CD',
+      type: 'personal',
+      desc: 'Full DevSecOps pipeline for a Nike Store JS app — Jenkins CI/CD with SonarQube static analysis, Trivy scanning (filesystem + image), Docker containerisation, Kubernetes + ArgoCD GitOps deployment on AWS EC2, and Prometheus + Grafana monitoring dashboards.',
+      role: 'DevOps Engineer',
+      stack: 'Jenkins · SonarQube · Trivy · Docker · Kubernetes · ArgoCD · Prometheus',
+      year: '2024',
+      links: [
+        { label: 'GitHub', href: 'https://github.com/JobinAj', primary: true }
+      ]
+    },
+    {
+      name: 'YouTube App GitLab CI/CD',
+      type: 'personal',
+      desc: 'End-to-end GitLab CI/CD pipeline for a YouTube clone — automated build, test, and deploy stages with Docker containerisation and AWS hosting. Trivy container scanning and SonarQube code quality analysis integrated into the pipeline for DevSecOps compliance.',
+      role: 'DevOps Engineer · High Catch',
+      stack: 'GitLab CI/CD · Docker · AWS · Trivy · SonarQube',
+      year: '2024',
+      links: [
+        { label: 'GitHub', href: 'https://github.com/JobinAj', primary: true }
       ]
     }
   ];
@@ -1113,6 +1416,7 @@
     const p = projects[i];
     projectInfo.innerHTML = `
       <span class="tag-open">&lt;project id="${String(i + 1).padStart(2, '0')}"&gt;</span>
+      <span class="project-type-badge ${p.type}">${p.type === 'work' ? 'Work' : 'Personal'}</span>
       <h3>${p.name}</h3>
       <p class="project-desc">${p.desc}</p>
       <div class="project-meta">
