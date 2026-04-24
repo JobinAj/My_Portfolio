@@ -598,13 +598,11 @@
       <div class="nav-group">
         <a href="#home" class="nav-item"><span class="num">//01</span><span class="tag-open">&lt;</span>Home<span class="tag-close">/&gt;</span></a>
         <a href="#about" class="nav-item"><span class="num">//02</span><span class="tag-open">&lt;</span>About<span class="tag-close">/&gt;</span></a>
-        <a href="https://blog.hexops.online/" target="_blank" rel="noopener" class="nav-item nav-blog"><span class="num">//03</span><span class="tag-open">&lt;</span>Blog<span class="tag-close">/&gt;</span></a>
       </div>
       <a href="#home" class="logo">/JAJ</a>
       <div class="nav-group">
-        <a href="#work" class="nav-item"><span class="num">//04</span><span class="tag-open">&lt;</span>Projects<span class="tag-close">/&gt;</span></a>
-        <a href="#certifications" class="nav-item"><span class="num">//05</span><span class="tag-open">&lt;</span>Certs<span class="tag-close">/&gt;</span></a>
-        <a href="#contact" class="nav-item"><span class="num">//06</span><span class="tag-open">&lt;</span>Contact<span class="tag-close">/&gt;</span></a>
+        <a href="#work" class="nav-item"><span class="num">//03</span><span class="tag-open">&lt;</span>Work<span class="tag-close">/&gt;</span></a>
+        <a href="#contact" class="nav-item"><span class="num">//04</span><span class="tag-open">&lt;</span>Contact<span class="tag-close">/&gt;</span></a>
       </div>
     </div>
   </nav>
@@ -736,7 +734,7 @@
             </div>
             <div class="aside-block">
               <div class="aside-label">Based in</div>
-              <div class="aside-value">Bangalore · IST (UTC+5:30)</div>
+              <div class="aside-value">Bangalore · <span id="ist-clock">IST (UTC+5:30)</span></div>
             </div>
             <div class="aside-block">
               <div class="aside-label">Blog</div>
@@ -1263,6 +1261,21 @@
 
 <script>
   const prefersReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+  // IST LIVE CLOCK
+  function updateISTClock() {
+    const el = document.getElementById('ist-clock');
+    if (!el) return;
+    const now = new Date();
+    const ist = new Date(now.toLocaleString('en-US', { timeZone: 'Asia/Kolkata' }));
+    const h = ist.getHours(), m = ist.getMinutes();
+    const ampm = h >= 12 ? 'PM' : 'AM';
+    const hh = String(h % 12 || 12).padStart(2, '0');
+    const mm = String(m).padStart(2, '0');
+    el.textContent = `${hh}:${mm} ${ampm} IST`;
+  }
+  updateISTClock();
+  setInterval(updateISTClock, 60000);
 
   // NAV SCROLL
   const nav = document.getElementById('mainNav');
