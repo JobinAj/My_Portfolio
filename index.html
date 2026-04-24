@@ -435,6 +435,7 @@
   .meta-item .meta-label { color: var(--ink-mute); letter-spacing: 0.1em; text-transform: uppercase; display: block; margin-bottom: 0.25rem; font-size: 0.68rem; }
   .meta-item .meta-value { color: var(--green); font-weight: 500; font-size: 0.78rem; }
   .project-links { display: flex; gap: 1rem; flex-wrap: wrap; }
+  .project-internal-note { font-family: var(--mono); font-size: 0.68rem; color: var(--ink-mute); letter-spacing: 0.1em; margin-bottom: 1rem; }
 
   .hex-btn {
     display: inline-flex; align-items: center; gap: 0.8rem;
@@ -1378,10 +1379,8 @@
       role: 'DevOps Engineer · Sirpi',
       stack: 'GitHub Actions · Docker · SonarQube · Trivy · OWASP ZAP',
       year: '2025',
-      links: [
-        { label: 'GitHub', href: 'https://github.com/JobinAj', primary: true },
-        { label: 'LinkedIn', href: 'https://www.linkedin.com/in/jobin-aj', primary: false }
-      ]
+      internal: true,
+      links: [{ label: 'Discuss this →', href: '#contact', primary: true }]
     },
     {
       name: 'GitOps K8s Platform',
@@ -1390,10 +1389,8 @@
       role: 'Platform Engineer · Sirpi',
       stack: 'Kubernetes · FluxCD · ArgoCD · KEDA · Prometheus · Datadog',
       year: '2025',
-      links: [
-        { label: 'GitHub', href: 'https://github.com/JobinAj', primary: true },
-        { label: 'LinkedIn', href: 'https://www.linkedin.com/in/jobin-aj', primary: false }
-      ]
+      internal: true,
+      links: [{ label: 'Discuss this →', href: '#contact', primary: true }]
     },
     {
       name: 'Banking Microservices',
@@ -1402,10 +1399,8 @@
       role: 'Lead Engineer',
       stack: 'AWS · Spring Boot · Jenkins · Docker · Terraform · Ansible',
       year: '2024',
-      links: [
-        { label: 'GitHub', href: 'https://github.com/JobinAj', primary: true },
-        { label: 'LinkedIn', href: 'https://www.linkedin.com/in/jobin-aj', primary: false }
-      ]
+      internal: true,
+      links: [{ label: 'Discuss this →', href: '#contact', primary: true }]
     },
     {
       name: 'Scalable AI Platform',
@@ -1414,9 +1409,7 @@
       role: 'Architecture Design',
       stack: 'FluxCD · Redis · NVIDIA DCGM · Prometheus · Grafana · Vault',
       year: '2025',
-      links: [
-        { label: 'LinkedIn', href: 'https://www.linkedin.com/in/jobin-aj', primary: true }
-      ]
+      links: [{ label: 'Discuss this →', href: '#contact', primary: true }]
     },
     {
       name: 'eCommerce OTel Demo',
@@ -1425,10 +1418,7 @@
       role: 'Platform Engineer',
       stack: 'Go · gRPC · AWS EKS · OpenTelemetry · Jaeger · Grafana · Locust',
       year: '2025',
-      links: [
-        { label: 'GitHub', href: 'https://github.com/JobinAj/ecommerce-opentelemetry-demo', primary: true },
-        { label: 'LinkedIn', href: 'https://www.linkedin.com/in/jobin-aj', primary: false }
-      ]
+      links: [{ label: 'GitHub', href: 'https://github.com/JobinAj/ecommerce-opentelemetry-demo', primary: true }]
     },
     {
       name: 'LLM Observability Stack',
@@ -1437,9 +1427,7 @@
       role: 'AI Platform Engineer · Sirpi',
       stack: 'Ollama · LiteLLM · Langfuse · Prometheus',
       year: '2025',
-      links: [
-        { label: 'LinkedIn', href: 'https://www.linkedin.com/in/jobin-aj', primary: true }
-      ]
+      links: [{ label: 'Discuss this →', href: '#contact', primary: true }]
     },
     {
       name: 'Mario Game on K8s AWS EKS',
@@ -1503,8 +1491,12 @@
           <span class="meta-value">${p.year}</span>
         </div>
       </div>
+      ${p.internal ? `<div class="project-internal-note">// source: internal · deployed in production</div>` : ''}
       <div class="project-links">
-        ${p.links.map(l => `<a href="${l.href}" target="_blank" rel="noopener" class="hex-btn${l.primary ? '' : ' ghost'}">${l.label}</a>`).join('')}
+        ${p.links.map(l => {
+          const isAnchor = l.href.startsWith('#');
+          return `<a href="${l.href}"${isAnchor ? '' : ' target="_blank" rel="noopener"'} class="hex-btn${l.primary ? '' : ' ghost'}">${l.label}</a>`;
+        }).join('')}
       </div>
       <span class="tag-close">&lt;/project&gt;</span>
     `;
