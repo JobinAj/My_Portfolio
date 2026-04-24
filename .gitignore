@@ -1,7 +1,13 @@
 .DS_Store
-.env
-*.local
+Thumbs.db
+.vscode/
+.idea/
+*.swp
 node_modules/
+.wrangler/
+wrangler.jsonc
+*.log
+.env
+.env.local
 dist/
 .cache/
-.wrangler/

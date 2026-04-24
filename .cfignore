@@ -1,0 +1,7 @@
+.git
+.github
+node_modules
+.wrangler
+README.md
+*.log
+.env
