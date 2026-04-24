@@ -11,3 +11,7 @@ wrangler.jsonc
 .env.local
 dist/
 .cache/
+
+.dev.vars*
+!.dev.vars.example
+!.env.example
