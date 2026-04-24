@@ -5,6 +5,16 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0" />
 <title>Jobin AJ — DevOps · AI Platform · Go Developer</title>
 <meta name="description" content="DevOps Engineer specialising in cloud-native CI/CD, Kubernetes orchestration, and AI platform infrastructure. Based in Bangalore." />
+<link rel="canonical" href="https://portfolio.hexops.online/" />
+<meta property="og:type" content="website" />
+<meta property="og:url" content="https://portfolio.hexops.online/" />
+<meta property="og:title" content="Jobin AJ — DevOps · AI Platform · Go Developer" />
+<meta property="og:description" content="DevOps Engineer specialising in cloud-native CI/CD, Kubernetes orchestration, and AI platform infrastructure. Based in Bangalore." />
+<meta property="og:image" content="https://portfolio.hexops.online/og-preview.png" />
+<meta name="twitter:card" content="summary_large_image" />
+<meta name="twitter:title" content="Jobin AJ — DevOps · AI Platform · Go Developer" />
+<meta name="twitter:description" content="DevOps Engineer specialising in cloud-native CI/CD, Kubernetes orchestration, and AI platform infrastructure. Based in Bangalore." />
+<meta name="twitter:image" content="https://portfolio.hexops.online/og-preview.png" />
 <link rel="icon" type="image/svg+xml" href="favicon.svg" />
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -508,9 +518,6 @@
   .bubble .name { font-size: 0.95rem; letter-spacing: 0.02em; margin: 0.15rem 0; }
   .bubble:hover { background: var(--green); color: var(--bg); box-shadow: 0 0 40px var(--green-glow); }
   .bubble:hover .sym { color: var(--bg); opacity: 0.8; }
-  .nav-blog { color: var(--amber) !important; }
-  .nav-blog .tag-open, .nav-blog .tag-close { color: var(--amber) !important; opacity: 0.7; }
-  .nav-blog:hover { color: var(--amber) !important; }
 
   .bubble.b1 { width: 145px; height: 145px; left: 11%; top: 58%; animation-delay: 0s; }
   .bubble.b2 { width: 132px; height: 132px; left: 28%; top: 28%; animation-delay: 0.8s; }
@@ -570,10 +577,22 @@
     .exp-tags { flex-direction: row; text-align: left; padding-top: 0.5rem; }
     .certs-grid { grid-template-columns: repeat(2, 1fr); }
   }
+  .hamburger { display: none; flex-direction: column; gap: 5px; background: none; border: none; cursor: pointer; padding: 6px; }
+  .hamburger span { display: block; width: 22px; height: 2px; background: var(--ink); border-radius: 2px; transition: transform 0.25s ease, opacity 0.25s ease; }
+  .hamburger.open span:nth-child(1) { transform: translateY(7px) rotate(45deg); }
+  .hamburger.open span:nth-child(2) { opacity: 0; }
+  .hamburger.open span:nth-child(3) { transform: translateY(-7px) rotate(-45deg); }
+  .mobile-menu { display: none; position: fixed; inset: 0; top: 56px; background: rgba(10,14,18,0.97); backdrop-filter: blur(12px); z-index: 999; flex-direction: column; align-items: center; justify-content: center; gap: 2.5rem; }
+  .mobile-menu.open { display: flex; }
+  .mobile-menu a { font-family: var(--mono); font-size: 1.2rem; color: var(--ink); text-decoration: none; letter-spacing: 0.08em; }
+  .mobile-menu a .num { color: var(--ink-mute); margin-right: 0.5rem; font-size: 0.75rem; }
+  .mobile-menu a .tag-open, .mobile-menu a .tag-close { color: var(--green); opacity: 0.7; }
+  .mobile-menu a:hover { color: var(--green); }
   @media (max-width: 700px) {
     .container { padding: 0 1.25rem; }
     .nav-group { display: none; }
-    nav .container { justify-content: center; }
+    .hamburger { display: flex; }
+    nav .container { justify-content: space-between; }
     .project-panel { padding: 2rem; }
     .hud-circle, .radar, .project-thumb { width: 260px; height: 260px; }
     .photo-portal-wrap { width: 200px; height: 200px; }
@@ -604,8 +623,17 @@
         <a href="#work" class="nav-item"><span class="num">//03</span><span class="tag-open">&lt;</span>Work<span class="tag-close">/&gt;</span></a>
         <a href="#contact" class="nav-item"><span class="num">//04</span><span class="tag-open">&lt;</span>Contact<span class="tag-close">/&gt;</span></a>
       </div>
+      <button class="hamburger" id="hamburger" aria-label="Toggle menu">
+        <span></span><span></span><span></span>
+      </button>
     </div>
   </nav>
+  <div class="mobile-menu" id="mobileMenu">
+    <a href="#home" class="mobile-nav-item"><span class="num">//01</span><span class="tag-open">&lt;</span>Home<span class="tag-close">/&gt;</span></a>
+    <a href="#about" class="mobile-nav-item"><span class="num">//02</span><span class="tag-open">&lt;</span>About<span class="tag-close">/&gt;</span></a>
+    <a href="#work" class="mobile-nav-item"><span class="num">//03</span><span class="tag-open">&lt;</span>Work<span class="tag-close">/&gt;</span></a>
+    <a href="#contact" class="mobile-nav-item"><span class="num">//04</span><span class="tag-open">&lt;</span>Contact<span class="tag-close">/&gt;</span></a>
+  </div>
 
   <!-- HERO -->
   <section class="hero" id="home">
@@ -622,7 +650,7 @@
         <div>
           <div class="status-pill">
             <span class="dot"></span>
-            <span><strong>Open</strong> to full-time opportunities — Q2 2026</span>
+            <span><strong>Actively available</strong> — open to full-time opportunities</span>
           </div>
 
           <div class="tag-line"><span class="t">&lt;p&gt;</span>This is<span class="t">&lt;/p&gt;</span></div>
@@ -1287,6 +1315,22 @@
     nav.classList.toggle('scrolled', window.scrollY > 40);
   });
 
+  // MOBILE HAMBURGER
+  const hamburger = document.getElementById('hamburger');
+  const mobileMenu = document.getElementById('mobileMenu');
+  hamburger.addEventListener('click', () => {
+    hamburger.classList.toggle('open');
+    mobileMenu.classList.toggle('open');
+    document.body.style.overflow = mobileMenu.classList.contains('open') ? 'hidden' : '';
+  });
+  document.querySelectorAll('.mobile-nav-item').forEach(link => {
+    link.addEventListener('click', () => {
+      hamburger.classList.remove('open');
+      mobileMenu.classList.remove('open');
+      document.body.style.overflow = '';
+    });
+  });
+
   // REVEAL ON SCROLL
   const observer = new IntersectionObserver(entries => {
     entries.forEach(e => { if (e.isIntersecting) e.target.classList.add('visible'); });
@@ -1398,14 +1442,14 @@
       ]
     },
     {
-      name: 'K8s App on AWS EKS',
+      name: 'Mario Game on K8s AWS EKS',
       type: 'personal',
-      desc: 'Containerised application deployed on AWS EKS using Kubernetes and Terraform IaC. Docker packaging, full Kubernetes orchestration (Pods, Deployments, Services, LoadBalancer), AWS S3 integration, and infrastructure provisioned end-to-end with Terraform.',
+      desc: 'Containerised Mario game deployed on AWS EKS using Kubernetes and Terraform IaC. Docker packaging, full Kubernetes orchestration (Pods, Deployments, Services, LoadBalancer), AWS S3 integration, and infrastructure provisioned end-to-end with Terraform.',
       role: 'DevOps Engineer',
       stack: 'AWS EKS · Kubernetes · Docker · Terraform · S3',
       year: '2024',
       links: [
-        { label: 'GitHub', href: 'https://github.com/JobinAj', primary: true }
+        { label: 'GitHub', href: 'https://github.com/JobinAj/k8s-mario', primary: true }
       ]
     },
     {
@@ -1416,7 +1460,7 @@
       stack: 'Jenkins · SonarQube · Trivy · Docker · Kubernetes · ArgoCD · Prometheus',
       year: '2024',
       links: [
-        { label: 'GitHub', href: 'https://github.com/JobinAj', primary: true }
+        { label: 'GitHub', href: 'https://github.com/JobinAj/nike-store-jsstack', primary: true }
       ]
     },
     {
@@ -1427,7 +1471,7 @@
       stack: 'GitLab CI/CD · Docker · AWS · Trivy · SonarQube',
       year: '2024',
       links: [
-        { label: 'GitHub', href: 'https://github.com/JobinAj', primary: true }
+        { label: 'GitHub', href: 'https://github.com/JobinAj/Youtube-clone-app', primary: true }
       ]
     }
   ];
